@@ -72,6 +72,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snapsvg__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snapsvg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_snapsvg__);
 
+
 var colors= ['aqua', 'blue', 'fuchsia', 'gray', 'green',
 'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red',
 'silver', 'teal', 'white', 'yellow'];
@@ -116,22 +117,18 @@ window.onload = function () {
         camisa.attr({fill: color});
       };
       root.click( clickFunc );
-      root.transform( 't800,120');
+      root.transform( 't800 130 s0.6 0.6');
       top.add(root);
     });
     __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/FlechaIzq.svg", function(f) {
       var root = f.select("#root");
       var clickFunc = function () {
-
         camisa_index--;
-        // if (camisa_index < 0) {
-        //   camisa_index = camisa_colors
-        // }
         var color = camisa_colors[Math.abs(camisa_index%camisa_colors.length)];
         camisa.attr({fill: color});
       };
       root.click( clickFunc );
-      root.transform( 't600,120');
+      root.transform( 't620,130 s0.6 0.6');
       top.add(root);
     });
     __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/Corbata.svg", function(f) {

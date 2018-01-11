@@ -1,4 +1,5 @@
 import Snap from 'snapsvg';
+
 var colors= ['aqua', 'blue', 'fuchsia', 'gray', 'green',
 'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red',
 'silver', 'teal', 'white', 'yellow'];
@@ -43,7 +44,7 @@ window.onload = function () {
         camisa.attr({fill: color});
       };
       root.click( clickFunc );
-      root.transform( 't800,120');
+      root.transform( 't800 130 s0.6 0.6');
       top.add(root);
     });
     Snap.load("./svg/FlechaIzq.svg", function(f) {
@@ -54,7 +55,7 @@ window.onload = function () {
         camisa.attr({fill: color});
       };
       root.click( clickFunc );
-      root.transform( 't600,120');
+      root.transform( 't620,130 s0.6 0.6');
       top.add(root);
     });
     Snap.load("./svg/Corbata.svg", function(f) {
