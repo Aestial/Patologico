@@ -1,3 +1,7 @@
-.DS_Store
-npm-debug.log
+// NPM
 node_modules/
+npm-debug.log
+// MacOS shit file
+.DS_Store
+// Atom Js hint config
+.jshintrc
