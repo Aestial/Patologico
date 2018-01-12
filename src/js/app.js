@@ -1,23 +1,10 @@
-import Snap from 'snapsvg';
+// require('!style-loader!css-loader!../fonts/myfrida/font.css');
+require('!style-loader!css-loader!../css/style.css');
 
-var colors= ['aqua', 'blue', 'fuchsia', 'gray', 'green',
-'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red',
-'silver', 'teal', 'white', 'yellow'];
-var camisa_colors = [
-  "#333333",
-  "#666a86",
-  "#95b8d1",
-  "#e8ddb5",
-  "#edafb8"
-];
-var corbata_colors = [
-  "#143109",
-  "#aaae7f",
-  "#d0d6b3",
-  "#f7f7f7",
-  "#efefef"
-];
+import Snap from 'snapsvg';
+var colors = require('./colors.js');
 var camisa_index = 0;
+var corbata_index = 0;
 window.onload = function () {
   var g = Snap();
   g.attr({
@@ -30,59 +17,81 @@ window.onload = function () {
     corbata = f.select("#corbata"),
     rombos = f.select("#rombos");
     top.add(root);
-    Snap.load("./svg/Camisa.svg", function(f) {
-      var root = f.select("#root");
-      var index = 0;
-      root.transform( 't685,100');
-      top.add(root);
-    });
     Snap.load("./svg/FlechaDer.svg", function(f) {
       var root = f.select("#root");
-      var clickFunc = function () {
+      var action = function () {
         camisa_index++;
-        var color = camisa_colors[Math.abs(camisa_index%camisa_colors.length)];
+        var clenght = colors.camisa.length;
+        var color = colors.camisa[Math.abs(camisa_index%clenght)];
         camisa.attr({fill: color});
       };
-      root.click( clickFunc );
-      root.transform( 't800 130 s0.6 0.6');
-      top.add(root);
+      var action2 = function () {
+        corbata_index++;
+        var clenght = colors.corbata.length;
+        var color = colors.corbata[Math.abs(corbata_index%clenght)];
+        corbata.attr({fill: color});
+      };
+      var camisa_but = root.clone();
+      camisa_but.click(action);
+      camisa_but.transform( 't800 130 s0.6 0.6');
+      top.add(camisa_but);
+      var corbata_but = root.clone();
+      corbata_but.click(action2);
+      corbata_but.transform( 't800 280 s0.6 0.6');
+      top.add(corbata_but);
     });
     Snap.load("./svg/FlechaIzq.svg", function(f) {
       var root = f.select("#root");
-      var clickFunc = function () {
+      var action = function () {
         camisa_index--;
-        var color = camisa_colors[Math.abs(camisa_index%camisa_colors.length)];
+        var clenght = colors.camisa.length;
+        var color = colors.camisa[Math.abs(camisa_index%clenght)];
         camisa.attr({fill: color});
       };
-      root.click( clickFunc );
-      root.transform( 't620,130 s0.6 0.6');
-      top.add(root);
-    });
-    Snap.load("./svg/Corbata.svg", function(f) {
-      var root = f.select("#root");
-      var index = 0;
-      var clickFunc = function () {
-        index++;
-        var color = corbata_colors[Math.floor(Math.random() * corbata_colors.length)];
-        var color2 = corbata_colors[Math.floor(Math.random() * corbata_colors.length)];
-        corbata.attr({fill: color2});
-        for(var i = 0; i < rombos.children().length; i++)
-        {
-          if (rombos.children()[i].type == "rect" || rombos.children()[i].type == "path")
-          {
-            console.log(rombos.children()[i].type);
-            rombos.children()[i].attr({fill: color});
-          }
-        }
+      var action2 = function () {
+        corbata_index--;
+        var clenght = colors.corbata.length;
+        var color = colors.corbata[Math.abs(corbata_index%clenght)];
+        corbata.attr({fill: color});
       };
-      root.click( clickFunc );
-      root.transform( 't735,250');
-      top.add(root);
+      var camisa_but = root.clone();
+      camisa_but.click(action);
+      camisa_but.transform( 't620 130 s0.6 0.6');
+      top.add(camisa_but);
+      var corbata_but = root.clone();
+      corbata_but.click(action2);
+      corbata_but.transform( 't620 280 s0.6 0.6');
+      top.add(corbata_but);
     });
+  });
+  Snap.load("./svg/Camisa.svg", function(f) {
+    var root = f.select("#root");
+    root.transform( 't685,100');
+    top.add(root);
+  });
+  Snap.load("./svg/Corbata.svg", function(f) {
+    var root = f.select("#root");
+    root.transform( 't715,250');
+    top.add(root);
   });
 };
 
 /*
+var clickFunc = function () {
+  index++;
+  var color = corbata_colors[Math.floor(Math.random() * corbata_colors.length)];
+  var color2 = corbata_colors[Math.floor(Math.random() * corbata_colors.length)];
+  corbata.attr({fill: color2});
+  for(var i = 0; i < rombos.children().length; i++)
+  {
+    if (rombos.children()[i].type == "rect" || rombos.children()[i].type == "path")
+    {
+      console.log(rombos.children()[i].type);
+      rombos.children()[i].attr({fill: color});
+    }
+  }
+};
+
 var hoverFunc = function () {
   console.log("Hover Camisa lol!");
 };
