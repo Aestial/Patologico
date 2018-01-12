@@ -1,8 +1,14 @@
-module.exports = {
-  colors: ['aqua', 'blue', 'fuchsia', 'gray', 'green',
-  'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red',
-  'silver', 'teal', 'white', 'yellow'],
+colores = {
   camisa: [
+    "#800080",
+    "#008080",
+    "#008000",
+    "#ffff00",
+    "#800000",
+    "#808080",
+    "#808000",
+    "#ff0000",
+    "#000000",
     "#333333",
     "#666a86",
     "#95b8d1",
@@ -17,3 +23,4 @@ module.exports = {
     "#efefef"
   ]
 };
+module.exports = colores;

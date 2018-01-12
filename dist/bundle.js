@@ -71,26 +71,28 @@
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snapsvg__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snapsvg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_snapsvg__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_Piece_js__ = __webpack_require__(2);
 // JS modules
 
+
 // CSS
-__webpack_require__(2);
+__webpack_require__(4);
 // require('!style-loader!css-loader!../fonts/myfrida/font.css');
 
-var colors = __webpack_require__(7);
+var colors = __webpack_require__(9);
 var camisa, corbata, rombos;
 
 var camisa_index = 0;
 var corbata_index = 0;
 var rombos_index = 0;
 
-window.onload = function () {
+window.onload = function() {
   var g = __WEBPACK_IMPORTED_MODULE_0_snapsvg___default()();
   g.attr({
     viewBox: [0, 0, 640, 873]
   });
   var top = g.g();
-  __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/Patologico.svg", function (f) {
+  __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/Patologico.svg", function(f) {
     var root = f.select("#root");
     camisa = f.select("#camisa");
     corbata = f.select("#corbata");
@@ -99,64 +101,71 @@ window.onload = function () {
   });
   __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/Camisa.svg", function(f) {
     var root = f.select("#root");
-    root.transform( 't685,100');
+    root.transform('t685,100');
     top.add(root);
   });
   __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/Corbata.svg", function(f) {
     var root = f.select("#root");
-    root.transform( 't715,250');
+    root.transform('t715,250');
     top.add(root);
   });
   __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/FlechaDer.svg", function(f) {
     var root = f.select("#root");
-    var action = function () {
+    var action = function() {
       camisa_index++;
       var clenght = colors.camisa.length;
-      var color = colors.camisa[Math.abs(camisa_index%clenght)];
-      camisa.attr({fill: color});
+      var color = colors.camisa[Math.abs(camisa_index % clenght)];
+      camisa.attr({
+        fill: color
+      });
     };
-    var action2 = function () {
+    var action2 = function() {
       corbata_index++;
       var clenght = colors.corbata.length;
-      var color = colors.corbata[Math.abs(corbata_index%clenght)];
-      corbata.attr({fill: color});
+      var color = colors.corbata[Math.abs(corbata_index % clenght)];
+      corbata.attr({
+        fill: color
+      });
     };
     var camisa_but = root.clone();
     camisa_but.click(action);
-    camisa_but.transform( 't800 130 s0.6 0.6');
+    camisa_but.transform('t800 130 s0.6 0.6');
     top.add(camisa_but);
     var corbata_but = root.clone();
     corbata_but.click(action2);
-    corbata_but.transform( 't800 280 s0.6 0.6');
+    corbata_but.transform('t800 280 s0.6 0.6');
     top.add(corbata_but);
   });
   __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/FlechaIzq.svg", function(f) {
     var root = f.select("#root");
-    var action = function () {
+    var action = function() {
       camisa_index--;
       var clenght = colors.camisa.length;
-      var color = colors.camisa[Math.abs(camisa_index%clenght)];
-      camisa.attr({fill: color});
+      var color = colors.camisa[Math.abs(camisa_index % clenght)];
+      camisa.attr({
+        fill: color
+      });
     };
-    var action2 = function () {
+    var action2 = function() {
       rombos_index++;
       var clenght = colors.corbata.length;
-      var color = colors.corbata[Math.abs(rombos_index%clenght)];
-      for(var i = 0; i < rombos.children().length; i++)
-      {
-        if (rombos.children()[i].type == "rect" || rombos.children()[i].type == "path")
-        {
-          rombos.children()[i].attr({fill: color});
+      var color = colors.corbata[Math.abs(rombos_index % clenght)];
+      for (var i = 0; i < rombos.children().length; i++) {
+        if (rombos.children()[i].type == "rect" || rombos.children()[i].type == "path") {
+          //console.log(rombos.children()[i].type);
+          rombos.children()[i].attr({
+            fill: color
+          });
         }
       }
     };
     var camisa_but = root.clone();
     camisa_but.click(action);
-    camisa_but.transform( 't620 130 s0.6 0.6');
+    camisa_but.transform('t620 130 s0.6 0.6');
     top.add(camisa_but);
     var corbata_but = root.clone();
     corbata_but.click(action2);
-    corbata_but.transform( 't620 280 s0.6 0.6');
+    corbata_but.transform('t620 280 s0.6 0.6');
     top.add(corbata_but);
   });
 };
@@ -8805,12 +8814,61 @@ return Snap;
 
 /***/ }),
 /* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__(3);
+
+
+class Piece extends __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* default */] {
+  constructor(name, properties = {}) {
+    super();
+    this.name = name;
+    this.properties = properties;
+  }
+}
+/* unused harmony export default */
+
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Observable {
+  constructor() {
+    this.observers = new Map();
+  }
+
+  addObserver(label, callback) {
+    this.observers.has(label) || this.observers.set(label, []);    
+    this.observers.get(label).push(callback);
+  }
+
+  emit(label, e) {
+    const observers = this.observers.get(label);
+
+    if (observers && observers.length) {
+      observers.forEach((callback) => {
+        callback(e);
+      });
+    }
+  }
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Observable;
+
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(3);
+var content = __webpack_require__(5);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -8818,7 +8876,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(5)(content, options);
+var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -8835,21 +8893,21 @@ if(false) {
 }
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(4)(false);
+exports = module.exports = __webpack_require__(6)(false);
 // imports
 
 
 // module
-exports.push([module.i, "html, body {margin: 0; height: 100%; overflow: hidden}\nbody{\n\tfont-family: MyFrida,helvetica;\n\tcolor: #000;\n\tbackground-color: #696969;\n}\n#contactMenu{\n  color: #f2f2f2;\n  font-weight: bold;\n  font-style: italic;\n  font-size: 1.1em;\n\t/*text-align:right;*/\n  height: 50px;\n\twidth:100%;\n\tposition:fixed;\n\tbottom:0;\n\tz-index:10;\n  padding: 0px 0px 10px 0px;\n}\n#contactMenu ul{\n\tpadding: 0 30px;\n}\n#contactMenu li{\n\tdisplay:inline-block;\n\tposition:relative;\n}\n#contactMenu li a{\n\tdisplay: block;\n\tmargin: 0 20px 0 0;\n\tcolor: #1e1e1e;\n}\n#contactMenu li a:hover{\n\tcolor: #4f4f4f;\n}\n", ""]);
+exports.push([module.i, "html, body {\n  margin: 0;\n  height: 100%;\n  overflow: hidden\n}\n\nbody {\n  font-family: MyFrida, helvetica;\n  color: #000;\n  background-color: #696969;\n}\n\n#contactMenu {\n  color: #f2f2f2;\n  font-weight: bold;\n  font-style: italic;\n  font-size: 1.1em;\n  /*text-align:right;*/\n  height: 50px;\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  padding: 0px 0px 10px 0px;\n}\n\n#contactMenu ul {\n  padding: 0 30px;\n}\n\n#contactMenu li {\n  display: inline-block;\n  position: relative;\n}\n\n#contactMenu li a {\n  display: block;\n  margin: 0 20px 0 0;\n  color: #1e1e1e;\n}\n\n#contactMenu li a:hover {\n  color: #4f4f4f;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports) {
 
 /*
@@ -8931,7 +8989,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -8987,7 +9045,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(6);
+var	fixUrls = __webpack_require__(8);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -9303,7 +9361,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports) {
 
 
@@ -9398,14 +9456,20 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports) {
 
-module.exports = {
-  colors: ['aqua', 'blue', 'fuchsia', 'gray', 'green',
-  'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red',
-  'silver', 'teal', 'white', 'yellow'],
+colores = {
   camisa: [
+    "#800080",
+    "#008080",
+    "#008000",
+    "#ffff00",
+    "#800000",
+    "#808080",
+    "#808000",
+    "#ff0000",
+    "#000000",
     "#333333",
     "#666a86",
     "#95b8d1",
@@ -9420,6 +9484,7 @@ module.exports = {
     "#efefef"
   ]
 };
+module.exports = colores;
 
 
 /***/ })
