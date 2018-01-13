@@ -80,20 +80,37 @@ __webpack_require__(4);
 // require('!style-loader!css-loader!../fonts/myfrida/font.css');
 
 var colors = __webpack_require__(9);
+var types = __webpack_require__(10);
+var shirt = {},
+  tie = {},
+  rombos = {},
+  back = {};
 
-var shirt, tie, rombos;
+shirt.name = "Shirt";
+tie.name = "Tie";
+rombos.name = "Rombos";
+back.name = "Back";
 
-var shirt_index = 0;
-var tie_index = 0;
-var rombos_index = 0;
-var back_index = 0;
+shirt.index = 0;
+tie.index = 0;
+rombos.index = 0;
+back.index = 0;
+
+shirt.colors = colors.shirt;
+tie.colors = colors.tie;
+rombos.colors = colors.tie;
+back.colors = colors.background;
 
 window.onload = function() {
+  // Find pato
   var pato = __WEBPACK_IMPORTED_MODULE_0_snapsvg___default()("#pato");
   var top = pato.g();
-  shirt = pato.select("#shirt");
-  tie = pato.select("#tie");
-  rombos = pato.select("#rombos");
+  // Pato elements:
+  shirt.svg = pato.select("#shirt");
+  tie.svg = pato.select("#tie");
+  rombos.svg = pato.select("#rombos");
+  back.svg = document.body;
+  // Icons
   __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/Camisa.svg", function(f) {
     var root = f.select("#root");
     root.transform('t750,100');
@@ -109,115 +126,89 @@ window.onload = function() {
     root.transform('t765,400');
     top.add(root);
   });
+  // Buttons
   __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/FlechaIzq.svg", function(f) {
     var root = f.select("#root");
-    var action = function() {
-      shirt_index--;
-      var clenght = colors.shirt.length;
-      var color = colors.shirt[Math.abs(shirt_index % clenght)];
-      shirt.attr({
-        fill: color
-      });
-    };
-    var action2 = function() {
-      tie_index--;
-      var clenght = colors.tie.length;
-      var color = colors.tie[Math.abs(tie_index % clenght)];
-      tie.attr({
-        fill: color
-      });
-    };
-    var action3 = function() {
-      rombos_index--;
-      var clenght = colors.tie.length;
-      var color = colors.tie[Math.abs(rombos_index % clenght)];
-      for (var i = 0; i < rombos.children().length; i++) {
-        if (rombos.children()[i].type == "rect" || rombos.children()[i].type == "path") {
-          //console.log(rombos.children()[i].type);
-          rombos.children()[i].attr({
-            fill: color
-          });
-        }
-      }
-    };
-    var action4 = function() {
-      back_index--;
-      var clenght = colors.background.length;
-      var color = colors.background[Math.abs(back_index % clenght)];
-      document.body.style.backgroundColor = color;
-    };
+
     var shirt_but = root.clone();
-    shirt_but.click(action);
+    shirt_but.click(function() {
+      ArrowAction(shirt, -1, types.Root);
+    });
     shirt_but.transform('t680 130 s0.6 0.6');
     top.add(shirt_but);
+
     var tie_but = root.clone();
-    tie_but.click(action2);
+    tie_but.click(function() {
+      ArrowAction(tie, -1, types.Root);
+    });
     tie_but.transform('t680 280 s0.6 0.6');
     top.add(tie_but);
+
     var rombos_but = root.clone();
-    rombos_but.click(action3);
+    rombos_but.click(function() {
+      ArrowAction(rombos, -1, types.Children);
+    });
     rombos_but.transform('t680 420 s0.6 0.6');
     top.add(rombos_but);
+
     var back_but = root.clone();
-    back_but.click(action4);
+    back_but.click(function() {
+      ArrowAction(back, -1, types.Background);
+    });
     back_but.transform('t740 530 s0.6 0.6');
     top.add(back_but);
   });
   __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/FlechaDer.svg", function(f) {
     var root = f.select("#root");
-    var action = function() {
-      shirt_index++;
-      var clenght = colors.shirt.length;
-      var color = colors.shirt[Math.abs(shirt_index % clenght)];
-      shirt.attr({
-        fill: color
-      });
-    };
-    var action2 = function() {
-      tie_index++;
-      var clenght = colors.tie.length;
-      var color = colors.tie[Math.abs(tie_index % clenght)];
-      tie.attr({
-        fill: color
-      });
-    };
-    var action3 = function() {
-      rombos_index++;
-      var clenght = colors.tie.length;
-      var color = colors.tie[Math.abs(rombos_index % clenght)];
-      for (var i = 0; i < rombos.children().length; i++) {
-        if (rombos.children()[i].type == "rect" || rombos.children()[i].type == "path") {
-          //console.log(rombos.children()[i].type);
-          rombos.children()[i].attr({
-            fill: color
-          });
-        }
-      }
-    };
-    var action4 = function() {
-      back_index++;
-      var clenght = colors.background.length;
-      var color = colors.background[Math.abs(back_index % clenght)];
-      document.body.style.backgroundColor = color;
-    };
+
     var shirt_but = root.clone();
-    shirt_but.click(action);
+    shirt_but.click(function() {
+      ArrowAction(shirt, 1, types.Root);
+    });
     shirt_but.transform('t875 130 s0.6 0.6');
     top.add(shirt_but);
+
     var tie_but = root.clone();
-    tie_but.click(action2);
+    tie_but.click(function() {
+      ArrowAction(tie, 1, types.Root);
+    });
     tie_but.transform('t875 280 s0.6 0.6');
     top.add(tie_but);
+
     var rombos_but = root.clone();
-    rombos_but.click(action3);
+    rombos_but.click(function() {
+      ArrowAction(rombos, 1, types.Children);
+    });
     rombos_but.transform('t875 420 s0.6 0.6');
     top.add(rombos_but);
+
     var back_but = root.clone();
-    back_but.click(action4);
+    back_but.click(function() {
+      ArrowAction(back, 1, types.Background);
+    });
     back_but.transform('t820 530 s0.6 0.6');
     top.add(back_but);
   });
+};
 
+var ArrowAction = function(obj, dir, type) {
+  console.log("Object: " + obj.name + "\nDir: " + ((dir > 0) ? "+1" : "-1"));
+  obj.index = obj.index + dir;
+  var c = obj.colors[Math.abs(obj.index % obj.colors.length)];
+  switch (type) {
+    case types.Root:
+      obj.svg.attr({ fill: c });
+      break;
+    case types.Children:
+      for (var i = 0; i < obj.svg.children().length; i++) {
+        if (obj.svg.children()[i].type == "rect" || obj.svg.children()[i].type == "path")
+          obj.svg.children()[i].attr({ fill: c });
+      }
+      break;
+    case types.Background:
+      obj.svg.style.backgroundColor = c;
+      break;
+  }
 };
 
 
@@ -9614,6 +9605,19 @@ colors = {
   ]
 };
 module.exports = colors;
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+var ElementTypes = {
+  Root : 0,
+  Children : 1,
+  Background : 2
+};
+Object.freeze(ElementTypes);
+module.exports = ElementTypes;
 
 
 /***/ })
