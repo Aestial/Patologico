@@ -197,12 +197,16 @@ var ArrowAction = function(obj, dir, type) {
   var c = obj.colors[Math.abs(obj.index % obj.colors.length)];
   switch (type) {
     case types.Root:
-      obj.svg.attr({ fill: c });
+      obj.svg.attr({
+        fill: c
+      });
       break;
     case types.Children:
       for (var i = 0; i < obj.svg.children().length; i++) {
         if (obj.svg.children()[i].type == "rect" || obj.svg.children()[i].type == "path")
-          obj.svg.children()[i].attr({ fill: c });
+          obj.svg.children()[i].attr({
+            fill: c
+          });
       }
       break;
     case types.Background:
@@ -8942,7 +8946,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "html, body {\n  margin: 0;\n  height: 100%;\n  overflow: hidden\n}\n\nbody {\n  font-family: MyFrida, helvetica;\n  color: #000;\n  background-color: #696969;\n}\n\n#pato {\n  width: 100%;\n  height: 100%;\n}\n\n/* #contactMenu {\n  color: #f2f2f2;\n  font-weight: bold;\n  font-style: italic;\n  font-size: 1.1em;\n  height: 50px;\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  padding: 0px 0px 10px 0px;\n}\n\n#contactMenu ul {\n  padding: 0 30px;\n}\n\n#contactMenu li {\n  display: inline-block;\n  position: relative;\n}\n\n#contactMenu li a {\n  display: block;\n  margin: 0 20px 0 0;\n  color: #1e1e1e;\n}\n\n#contactMenu li a:hover {\n  color: #4f4f4f;\n} */\n", ""]);
+exports.push([module.i, "html, body {\n  margin: 0;\n  height: 100%;\n  overflow: hidden\n}\n\nbody {\n  font-family: MyFrida, helvetica;\n  color: #000;\n  background-color: #696969;\n}\n\n@media only screen and (orientation: landscape) {\n\t#pato {\n\t  width: 100%;\n\t\theight: 100%;\n\t}\n}\n@media only screen and (orientation: portrait) {\n\t#pato {\n\t  height: 100%;\n\t}\n}\n\n/* #contactMenu {\n  color: #f2f2f2;\n  font-weight: bold;\n  font-style: italic;\n  font-size: 1.1em;\n  height: 50px;\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  padding: 0px 0px 10px 0px;\n}\n\n#contactMenu ul {\n  padding: 0 30px;\n}\n\n#contactMenu li {\n  display: inline-block;\n  position: relative;\n}\n\n#contactMenu li a {\n  display: block;\n  margin: 0 20px 0 0;\n  color: #1e1e1e;\n}\n\n#contactMenu li a:hover {\n  color: #4f4f4f;\n} */\n", ""]);
 
 // exports
 
@@ -9597,7 +9601,7 @@ colors = {
     "#808000", //
     "#ff0000", //
     "#999999",
-    "#666666", 
+    "#666666",
     "#333333",
     "#ffffff", //
     "#800000",
@@ -9612,9 +9616,9 @@ module.exports = colors;
 /***/ (function(module, exports) {
 
 var ElementTypes = {
-  Root : 0,
-  Children : 1,
-  Background : 2
+  Root: 0,
+  Children: 1,
+  Background: 2
 };
 Object.freeze(ElementTypes);
 module.exports = ElementTypes;
