@@ -1,6 +1,5 @@
 html, body {
   margin: 0;
-  height: 100%;
   overflow: hidden
 }
 
@@ -18,7 +17,7 @@ body {
 @media only screen and (orientation: portrait) {
 	#pato {
 		width: auto;
-		transform: translateX(-25%);
+		transform: translate(-23%, 10%);
 	}
 }
 
