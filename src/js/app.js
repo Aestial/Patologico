@@ -6,6 +6,7 @@ require('!style-loader!css-loader!../css/style.css');
 // require('!style-loader!css-loader!../fonts/myfrida/font.css');
 
 var colors = require('./colors.js');
+
 var shirt, tie, rombos;
 
 var shirt_index = 0;
@@ -14,18 +15,11 @@ var rombos_index = 0;
 var back_index = 0;
 
 window.onload = function() {
-  var g = Snap();
-  g.attr({
-    viewBox: [0, 0, 640, 873]
-  });
-  var top = g.g();
-  Snap.load("./svg/Patologico.svg", function(f) {
-    shirt = f.select("#camisa");
-    tie = f.select("#corbata");
-    rombos = f.select("#rombos");
-    var root = f.select("#root");
-    top.add(root);
-  });
+  var pato = Snap("#pato");
+  var top = pato.g();
+  shirt = pato.select("#shirt");
+  tie = pato.select("#tie");
+  rombos = pato.select("#rombos");
   Snap.load("./svg/Camisa.svg", function(f) {
     var root = f.select("#root");
     root.transform('t750,100');

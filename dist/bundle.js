@@ -80,6 +80,7 @@ __webpack_require__(4);
 // require('!style-loader!css-loader!../fonts/myfrida/font.css');
 
 var colors = __webpack_require__(9);
+
 var shirt, tie, rombos;
 
 var shirt_index = 0;
@@ -88,18 +89,11 @@ var rombos_index = 0;
 var back_index = 0;
 
 window.onload = function() {
-  var g = __WEBPACK_IMPORTED_MODULE_0_snapsvg___default()();
-  g.attr({
-    viewBox: [0, 0, 640, 873]
-  });
-  var top = g.g();
-  __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/Patologico.svg", function(f) {
-    shirt = f.select("#camisa");
-    tie = f.select("#corbata");
-    rombos = f.select("#rombos");
-    var root = f.select("#root");
-    top.add(root);
-  });
+  var pato = __WEBPACK_IMPORTED_MODULE_0_snapsvg___default()("#pato");
+  var top = pato.g();
+  shirt = pato.select("#shirt");
+  tie = pato.select("#tie");
+  rombos = pato.select("#rombos");
   __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/Camisa.svg", function(f) {
     var root = f.select("#root");
     root.transform('t750,100');
@@ -8957,7 +8951,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "html, body {\n  margin: 0;\n  height: 100%;\n  overflow: hidden\n}\n\nbody {\n  font-family: MyFrida, helvetica;\n  color: #000;\n  background-color: #696969;\n}\n\n#contactMenu {\n  color: #f2f2f2;\n  font-weight: bold;\n  font-style: italic;\n  font-size: 1.1em;\n  /*text-align:right;*/\n  height: 50px;\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  padding: 0px 0px 10px 0px;\n}\n\n#contactMenu ul {\n  padding: 0 30px;\n}\n\n#contactMenu li {\n  display: inline-block;\n  position: relative;\n}\n\n#contactMenu li a {\n  display: block;\n  margin: 0 20px 0 0;\n  color: #1e1e1e;\n}\n\n#contactMenu li a:hover {\n  color: #4f4f4f;\n}\n", ""]);
+exports.push([module.i, "html, body {\n  margin: 0;\n  height: 100%;\n  overflow: hidden\n}\n\nbody {\n  font-family: MyFrida, helvetica;\n  color: #000;\n  background-color: #696969;\n}\n\n#pato {\n  width: 100%;\n  height: 100%;\n}\n\n/* #contactMenu {\n  color: #f2f2f2;\n  font-weight: bold;\n  font-style: italic;\n  font-size: 1.1em;\n  height: 50px;\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  padding: 0px 0px 10px 0px;\n}\n\n#contactMenu ul {\n  padding: 0 30px;\n}\n\n#contactMenu li {\n  display: inline-block;\n  position: relative;\n}\n\n#contactMenu li a {\n  display: block;\n  margin: 0 20px 0 0;\n  color: #1e1e1e;\n}\n\n#contactMenu li a:hover {\n  color: #4f4f4f;\n} */\n", ""]);
 
 // exports
 
