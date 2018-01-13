@@ -20,80 +20,26 @@ window.onload = function() {
   });
   var top = g.g();
   Snap.load("./svg/Patologico.svg", function(f) {
-    var root = f.select("#root");
     shirt = f.select("#camisa");
     tie = f.select("#corbata");
     rombos = f.select("#rombos");
+    var root = f.select("#root");
     top.add(root);
   });
   Snap.load("./svg/Camisa.svg", function(f) {
     var root = f.select("#root");
-    root.transform('t685,100');
+    root.transform('t750,100');
     top.add(root);
   });
   Snap.load("./svg/Corbata.svg", function(f) {
     var root = f.select("#root");
-    root.transform('t715,250');
+    root.transform('t785,250');
     top.add(root);
   });
   Snap.load("./svg/Rombo.svg", function(f) {
     var root = f.select("#root");
-    root.transform('t700,420');
+    root.transform('t765,400');
     top.add(root);
-  });
-  Snap.load("./svg/FlechaDer.svg", function(f) {
-    var root = f.select("#root");
-    var action = function() {
-      shirt_index++;
-      var clenght = colors.shirt.length;
-      var color = colors.shirt[Math.abs(shirt_index % clenght)];
-      shirt.attr({
-        fill: color
-      });
-    };
-    var action2 = function() {
-      tie_index++;
-      var clenght = colors.tie.length;
-      var color = colors.tie[Math.abs(tie_index % clenght)];
-      tie.attr({
-        fill: color
-      });
-    };
-    var action3 = function() {
-      rombos_index++;
-      var clenght = colors.tie.length;
-      var color = colors.tie[Math.abs(rombos_index % clenght)];
-      for (var i = 0; i < rombos.children().length; i++) {
-        if (rombos.children()[i].type == "rect" || rombos.children()[i].type == "path") {
-          //console.log(rombos.children()[i].type);
-          rombos.children()[i].attr({
-            fill: color
-          });
-        }
-      }
-    };
-    var action4 = function() {
-      back_index++;
-      var clenght = colors.background.length;
-      var color = colors.background[Math.abs(back_index % clenght)];
-      document.body.style.backgroundColor = color;
-    };
-    var shirt_but = root.clone();
-    shirt_but.click(action);
-    shirt_but.transform('t800 130 s0.6 0.6');
-    top.add(shirt_but);
-    var tie_but = root.clone();
-    tie_but.click(action2);
-    tie_but.transform('t800 280 s0.6 0.6');
-    top.add(tie_but);
-    var rombos_but = root.clone();
-    rombos_but.click(action3);
-    rombos_but.transform('t800 440 s0.6 0.6');
-    top.add(rombos_but);
-    var back_but = root.clone();
-    back_but.click(action4);
-    back_but.transform('t750 580 s0.6 0.6');
-    top.add(back_but);
   });
   Snap.load("./svg/FlechaIzq.svg", function(f) {
     var root = f.select("#root");
@@ -134,19 +80,74 @@ window.onload = function() {
     };
     var shirt_but = root.clone();
     shirt_but.click(action);
-    shirt_but.transform('t620 130 s0.6 0.6');
+    shirt_but.transform('t680 130 s0.6 0.6');
     top.add(shirt_but);
     var tie_but = root.clone();
     tie_but.click(action2);
-    tie_but.transform('t620 280 s0.6 0.6');
+    tie_but.transform('t680 280 s0.6 0.6');
     top.add(tie_but);
     var rombos_but = root.clone();
     rombos_but.click(action3);
-    rombos_but.transform('t620 440 s0.6 0.6');
+    rombos_but.transform('t680 420 s0.6 0.6');
     top.add(rombos_but);
     var back_but = root.clone();
     back_but.click(action4);
-    back_but.transform('t680 580 s0.6 0.6');
+    back_but.transform('t740 530 s0.6 0.6');
     top.add(back_but);
   });
+  Snap.load("./svg/FlechaDer.svg", function(f) {
+    var root = f.select("#root");
+    var action = function() {
+      shirt_index++;
+      var clenght = colors.shirt.length;
+      var color = colors.shirt[Math.abs(shirt_index % clenght)];
+      shirt.attr({
+        fill: color
+      });
+    };
+    var action2 = function() {
+      tie_index++;
+      var clenght = colors.tie.length;
+      var color = colors.tie[Math.abs(tie_index % clenght)];
+      tie.attr({
+        fill: color
+      });
+    };
+    var action3 = function() {
+      rombos_index++;
+      var clenght = colors.tie.length;
+      var color = colors.tie[Math.abs(rombos_index % clenght)];
+      for (var i = 0; i < rombos.children().length; i++) {
+        if (rombos.children()[i].type == "rect" || rombos.children()[i].type == "path") {
+          //console.log(rombos.children()[i].type);
+          rombos.children()[i].attr({
+            fill: color
+          });
+        }
+      }
+    };
+    var action4 = function() {
+      back_index++;
+      var clenght = colors.background.length;
+      var color = colors.background[Math.abs(back_index % clenght)];
+      document.body.style.backgroundColor = color;
+    };
+    var shirt_but = root.clone();
+    shirt_but.click(action);
+    shirt_but.transform('t875 130 s0.6 0.6');
+    top.add(shirt_but);
+    var tie_but = root.clone();
+    tie_but.click(action2);
+    tie_but.transform('t875 280 s0.6 0.6');
+    top.add(tie_but);
+    var rombos_but = root.clone();
+    rombos_but.click(action3);
+    rombos_but.transform('t875 420 s0.6 0.6');
+    top.add(rombos_but);
+    var back_but = root.clone();
+    back_but.click(action4);
+    back_but.transform('t820 530 s0.6 0.6');
+    top.add(back_but);
+  });
+
 };
