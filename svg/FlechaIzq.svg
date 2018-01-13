@@ -41,34 +41,25 @@
     showgrid="false"
     showguides="true"
     inkscape:guide-bbox="true"
-    inkscape:zoom="6.0215678"
-    inkscape:cx="33.027295"
-    inkscape:cy="40.604185"
+    inkscape:zoom="6.0215691"
+    inkscape:cx="33.026855"
+    inkscape:cy="40.604034"
     inkscape:window-x="-8"
     inkscape:window-y="-8"
     inkscape:window-maximized="1"
-    inkscape:current-layer="layer4"
+    inkscape:current-layer="layer1"
     fit-margin-top="0"
     fit-margin-left="0"
     fit-margin-right="0"
     fit-margin-bottom="0"/>
   <g id="root" style="display:inline">
-    <g inkscape:groupmode="layer" id="layer4" inkscape:label="Fondo Select Izq" style="display:inline" transform="translate(-1694.6631,-553.31856)">
-      <g style="display:inline" transform="matrix(2.0842162,0,0,2.0842162,1431.5464,281.68881)" id="g4779">
-        <g style="fill:#faf5f1;fill-opacity:1" id="g4726" transform="matrix(0.88221241,0,0,0.88221241,58.96095,-61.456802)"/>
-        <path
-          style="opacity:0.5;fill:#f8f7f5;fill-opacity:1;stroke:none"
-          d="m 126.24252,149.80873 c 17.08715,-7.11517 21.66821,-9.58743 31.69235,-19.48168 -0.54734,7.70729 -2.50896,16.6018 -11.02533,19.48168 z"
-          id="path4737"
-          inkscape:connector-curvature="0"
-          sodipodi:nodetypes="cccc"/>
-        <path
-          sodipodi:nodetypes="cccc"
-          inkscape:connector-curvature="0"
-          id="path4739"
-          d="m 126.24252,149.80873 c 17.08715,7.11517 21.66821,9.58743 31.69235,19.48168 -0.54734,-7.70729 -2.50896,-16.6018 -11.02533,-19.48168 z"
-          style="opacity:0.5;fill:#f8f7f5;fill-opacity:1;stroke:none"/>
-      </g>
+    <g inkscape:groupmode="layer" id="layer1" inkscape:label="Nueva">
+      <path
+        style="fill:#faf5f1;stroke:none;stroke-width:0.10000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1;opacity:0.50000000000000000"
+        d="M 0.01171875,40.606506 C 33.388076,27.549845 49.090877,17.895292 66.054688,0.0088501 64.650825,19.099948 59.395157,34.767218 43.074219,40.598694 60.743144,47.853022 64.880559,63.237414 66.050781,81.204163 45.366572,58.961661 23.593112,50.223474 0.01171875,40.606506 z"
+        id="path3755"
+        inkscape:connector-curvature="0"
+        sodipodi:nodetypes="ccccc"/>
     </g>
   </g>
 

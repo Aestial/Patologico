@@ -21,7 +21,7 @@
       <cc:Work rdf:about="">
         <dc:format>image/svg+xml</dc:format>
         <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-        <dc:title/>
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -41,9 +41,9 @@
     showgrid="false"
     showguides="true"
     inkscape:guide-bbox="true"
-    inkscape:zoom="6.0158585"
-    inkscape:cx="33.017578"
-    inkscape:cy="40.599609"
+    inkscape:zoom="6.021568"
+    inkscape:cx="60.511391"
+    inkscape:cy="40.604042"
     inkscape:window-x="-8"
     inkscape:window-y="-8"
     inkscape:window-maximized="1"
@@ -53,13 +53,9 @@
     fit-margin-right="0"
     fit-margin-bottom="0"/>
   <g id="root" style="display:inline">
+
     <g inkscape:groupmode="layer" id="layer1" inkscape:label="Nueva">
-      <path
-        style="fill:#faf5f1;stroke:none;stroke-width:0.10000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1;opacity:0.5"
-        d="M 66.027344,40.606522 C 45.354559,49.479501 25.512909,55.027934 0.01953125,81.188553 1.5772071,56.741325 9.8306583,45.745183 22.972656,40.598709 2.0265169,33.170932 1.5726003,11.365075 0.0078125,0.02839661 19.479698,19.591057 33.183626,27.336866 66.027344,40.606522 z"
-        id="path2987"
-        inkscape:connector-curvature="0"
-        sodipodi:nodetypes="ccccc"/>
+      <rect style="opacity:0.50000000000000000;fill:#faf5f1;fill-opacity:1;fill-rule:nonzero;stroke:none" id="rect2991" width="36.810963" height="36.810963" x="-24.060925" y="34.200535" transform="matrix(0.7005498,-0.71360351,0.71360351,0.7005498,0,0)"/>
     </g>
   </g>
 </svg>
