@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,156 +68,153 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__(1);
+
+
+class Piece extends __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* default */] {
+  constructor(name, properties = {}) {
+    super();
+    this.name = name;
+    this.properties = properties;
+    this.index = 0;
+  }
+  setSVG(svg) {
+    this.svg = svg;
+  }
+  updateIndex(dir){
+    console.log("Object: " + this.name);
+    console.log("Index: " + this.index + ((dir > 0) ? " +1" : " -1"));
+    this.index += dir;
+    this.updateColor(this.index);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Piece;
+
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Observable {
+  constructor() {
+    this.observers = new Map();
+  }
+
+  addObserver(label, callback) {
+    this.observers.has(label) || this.observers.set(label, []);    
+    this.observers.get(label).push(callback);
+  }
+
+  emit(label, e) {
+    const observers = this.observers.get(label);
+
+    if (observers && observers.length) {
+      observers.forEach((callback) => {
+        callback(e);
+      });
+    }
+  }
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Observable;
+
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snapsvg__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snapsvg__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snapsvg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_snapsvg__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_Piece_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_Root_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_Parent_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_Background_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_MenuElement_js__ = __webpack_require__(7);
 // JS modules
 
 
+
+
+
 // CSS
-__webpack_require__(4);
-// require('!style-loader!css-loader!../fonts/myfrida/font.css');
+__webpack_require__(8);
 
-var colors = __webpack_require__(9);
-var types = __webpack_require__(10);
-var shirt = {},
-  tie = {},
-  rombos = {},
-  back = {};
+var colors = __webpack_require__(13);
 
-shirt.name = "Shirt";
-tie.name = "Tie";
-rombos.name = "Rombos";
-back.name = "Back";
+// Elements
+var shirt = new __WEBPACK_IMPORTED_MODULE_1__model_Root_js__["a" /* default */]("Shirt",{colors:colors.shirt});
+var tie = new __WEBPACK_IMPORTED_MODULE_1__model_Root_js__["a" /* default */]("Tie",{colors:colors.tie});
+var rombos = new __WEBPACK_IMPORTED_MODULE_2__model_Parent_js__["a" /* default */]("Rombos",{colors:colors.tie});
+var back = new __WEBPACK_IMPORTED_MODULE_3__model_Background_js__["a" /* default */]("Background",{colors:colors.background});
 
-shirt.index = 0;
-tie.index = 0;
-rombos.index = 0;
-back.index = 0;
-
-shirt.colors = colors.shirt;
-tie.colors = colors.tie;
-rombos.colors = colors.tie;
-back.colors = colors.background;
+//Menu
+var shirt_M = new __WEBPACK_IMPORTED_MODULE_4__model_MenuElement_js__["a" /* default */]("Shirt", shirt);
+var tie_M = new __WEBPACK_IMPORTED_MODULE_4__model_MenuElement_js__["a" /* default */]("Tie", tie);
+var rombos_M = new __WEBPACK_IMPORTED_MODULE_4__model_MenuElement_js__["a" /* default */]("Rombos", rombos);
+var back_M = new __WEBPACK_IMPORTED_MODULE_4__model_MenuElement_js__["a" /* default */]("Rombos", rombos);
 
 window.onload = function() {
   // Find pato
   var pato = __WEBPACK_IMPORTED_MODULE_0_snapsvg___default()("#pato");
   var top = pato.g();
-  // Pato elements:
-  shirt.svg = pato.select("#shirt");
-  tie.svg = pato.select("#tie");
-  rombos.svg = pato.select("#rombos");
-  back.svg = document.body;
+  // Set graphic elements
+  shirt.setSVG(pato.select("#shirt"));
+  tie.setSVG(pato.select("#tie"));
+  rombos.setSVG(pato.select("#rombos"));
+  back.setSVG(document.body);
   // Icons
-  __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/Camisa.svg", function(f) {
-    var root = f.select("#root");
-    root.transform('t750,100');
-    top.add(root);
-  });
-  __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/Corbata.svg", function(f) {
-    var root = f.select("#root");
-    root.transform('t785,250');
-    top.add(root);
-  });
-  __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/Rombo.svg", function(f) {
-    var root = f.select("#root");
-    root.transform('t765,400');
-    top.add(root);
-  });
+  shirt_M.setIcon("./svg/Camisa.svg", top, 't750,100');
+  tie_M.setIcon("./svg/Corbata.svg", top, 't785,250');
+  rombos_M.setIcon("./svg/Rombo.svg", top, 't765,400');
+
   // Buttons
   __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/FlechaIzq.svg", function(f) {
     var root = f.select("#root");
-
-    var shirt_but = root.clone();
-    shirt_but.click(function() {
-      ArrowAction(shirt, -1, types.Root);
+    shirt_M.setLeftArrow(root.clone(), top, 't680 130 s0.6 0.6');
+    shirt_M.arrows.left.click(function() {
+      shirt.updateIndex(-1);
     });
-    shirt_but.transform('t680 130 s0.6 0.6');
-    top.add(shirt_but);
-
-    var tie_but = root.clone();
-    tie_but.click(function() {
-      ArrowAction(tie, -1, types.Root);
+    tie_M.setLeftArrow(root.clone(), top, 't680 280 s0.6 0.6');
+    tie_M.arrows.left.click(function() {
+      tie.updateIndex(-1);
     });
-    tie_but.transform('t680 280 s0.6 0.6');
-    top.add(tie_but);
-
-    var rombos_but = root.clone();
-    rombos_but.click(function() {
-      ArrowAction(rombos, -1, types.Children);
+    rombos_M.setLeftArrow(root.clone(), top, 't680 420 s0.6 0.6');
+    rombos_M.arrows.left.click(function() {
+      rombos.updateIndex(-1);
     });
-    rombos_but.transform('t680 420 s0.6 0.6');
-    top.add(rombos_but);
-
-    var back_but = root.clone();
-    back_but.click(function() {
-      ArrowAction(back, -1, types.Background);
+    back_M.setLeftArrow(root.clone(), top, 't740 530 s0.6 0.6');
+    back_M.arrows.left.click(function() {
+      back.updateIndex(-1);
     });
-    back_but.transform('t740 530 s0.6 0.6');
-    top.add(back_but);
   });
   __WEBPACK_IMPORTED_MODULE_0_snapsvg___default.a.load("./svg/FlechaDer.svg", function(f) {
     var root = f.select("#root");
-
-    var shirt_but = root.clone();
-    shirt_but.click(function() {
-      ArrowAction(shirt, 1, types.Root);
+    shirt_M.setRightArrow(root.clone(), top, 't875 130 s0.6 0.66');
+    shirt_M.arrows.right.click(function() {
+      shirt.updateIndex(1);
     });
-    shirt_but.transform('t875 130 s0.6 0.6');
-    top.add(shirt_but);
-
-    var tie_but = root.clone();
-    tie_but.click(function() {
-      ArrowAction(tie, 1, types.Root);
+    tie_M.setRightArrow(root.clone(), top, 't875 280 s0.6 0.6');
+    tie_M.arrows.right.click(function() {
+      tie.updateIndex(1);
     });
-    tie_but.transform('t875 280 s0.6 0.6');
-    top.add(tie_but);
-
-    var rombos_but = root.clone();
-    rombos_but.click(function() {
-      ArrowAction(rombos, 1, types.Children);
+    rombos_M.setRightArrow(root.clone(), top, 't875 420 s0.6 0.6');
+    rombos_M.arrows.right.click(function() {
+      rombos.updateIndex(1);
     });
-    rombos_but.transform('t875 420 s0.6 0.6');
-    top.add(rombos_but);
-
-    var back_but = root.clone();
-    back_but.click(function() {
-      ArrowAction(back, 1, types.Background);
+    back_M.setRightArrow(root.clone(), top, 't820 530 s0.6 0.6');
+    back_M.arrows.right.click(function() {
+      back.updateIndex(1);
     });
-    back_but.transform('t820 530 s0.6 0.6');
-    top.add(back_but);
   });
-};
-
-var ArrowAction = function(obj, dir, type) {
-  console.log("Object: " + obj.name + "\nDir: " + ((dir > 0) ? "+1" : "-1"));
-  obj.index = obj.index + dir;
-  var c = obj.colors[Math.abs(obj.index % obj.colors.length)];
-  switch (type) {
-    case types.Root:
-      obj.svg.attr({
-        fill: c
-      });
-      break;
-    case types.Children:
-      for (var i = 0; i < obj.svg.children().length; i++) {
-        if (obj.svg.children()[i].type == "rect" || obj.svg.children()[i].type == "path")
-          obj.svg.children()[i].attr({
-            fill: c
-          });
-      }
-      break;
-    case types.Background:
-      obj.svg.style.backgroundColor = c;
-      break;
-  }
 };
 
 
 /***/ }),
-/* 1 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
@@ -8858,62 +8855,127 @@ return Snap;
 }.call(window));
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(0);
 
 
-class Piece extends __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* default */] {
-  constructor(name, properties = {}) {
-    super();
-    this.name = name;
-    this.properties = properties;
-  }
-}
-/* unused harmony export default */
-
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Observable {
-  constructor() {
-    this.observers = new Map();
-  }
-
-  addObserver(label, callback) {
-    this.observers.has(label) || this.observers.set(label, []);    
-    this.observers.get(label).push(callback);
-  }
-
-  emit(label, e) {
-    const observers = this.observers.get(label);
-
-    if (observers && observers.length) {
-      observers.forEach((callback) => {
-        callback(e);
+class Root extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
+    constructor(name, properties) {
+        super(name, properties);
+        this.className = 'Root';
+    }
+    updateColor(index){
+      var l = this.properties.colors.length;
+      var c = this.properties.colors[Math.abs(index % l)];
+      this.svg.attr({
+        fill: c
       });
     }
-  }
-
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Observable;
+/* harmony export (immutable) */ __webpack_exports__["a"] = Root;
 
 
 
 /***/ }),
-/* 4 */
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(0);
+
+
+class Parent extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
+  constructor(name, properties) {
+    super(name, properties);
+    this.className = 'Parent';
+  }
+  updateColor(index) {
+    var l = this.properties.colors.length;
+    var c = this.properties.colors[Math.abs(index % l)];
+    for (var i = 0; i < this.svg.children().length; i++) {
+      if (this.svg.children()[i].type == "rect" || this.svg.children()[i].type == "path")
+        this.svg.children()[i].attr({
+          fill: c
+        });
+    }
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Parent;
+
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(0);
+
+
+class Background extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
+  constructor(name, properties) {
+    super(name, properties);
+    this.className = 'Background';
+  }
+  updateColor(index) {
+    var l = this.properties.colors.length;
+    var c = this.properties.colors[Math.abs(index % l)];
+    this.svg.style.backgroundColor = c;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Background;
+
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__(1);
+
+
+class MenuElement extends __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* default */] {
+  constructor(name, piece, properties = {}) {
+    super();
+    this.name = name;
+    this.piece = piece;
+    this.properties = properties;
+    this.arrows = {};
+  }
+  setIcon(path, top, transform) {
+    this.icon = Snap.load(path, function(f) {
+      var root = f.select("#root");
+      root.transform(transform);
+      top.add(root);
+    });
+  }
+  setLeftArrow(svg, top, transform) {
+    this.arrows.left = svg;
+    this.arrows.left.transform(transform);
+    top.add(this.arrows.left);
+  }
+  setRightArrow(svg, top, transform) {
+    this.arrows.right = svg;
+    this.arrows.right.transform(transform);
+    top.add(this.arrows.right);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = MenuElement;
+
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(5);
+var content = __webpack_require__(9);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -8921,7 +8983,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(7)(content, options);
+var update = __webpack_require__(11)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -8938,10 +9000,10 @@ if(false) {
 }
 
 /***/ }),
-/* 5 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(false);
+exports = module.exports = __webpack_require__(10)(false);
 // imports
 
 
@@ -8952,7 +9014,7 @@ exports.push([module.i, "html, body {\n  margin: 0;\n  overflow: hidden\n}\n\nbo
 
 
 /***/ }),
-/* 6 */
+/* 10 */
 /***/ (function(module, exports) {
 
 /*
@@ -9034,7 +9096,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 7 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -9090,7 +9152,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(8);
+var	fixUrls = __webpack_require__(12);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -9406,7 +9468,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 8 */
+/* 12 */
 /***/ (function(module, exports) {
 
 
@@ -9501,7 +9563,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 9 */
+/* 13 */
 /***/ (function(module, exports) {
 
 colors = {
@@ -9609,19 +9671,6 @@ colors = {
   ]
 };
 module.exports = colors;
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-var ElementTypes = {
-  Root: 0,
-  Children: 1,
-  Background: 2
-};
-Object.freeze(ElementTypes);
-module.exports = ElementTypes;
 
 
 /***/ })

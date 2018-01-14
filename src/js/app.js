@@ -1,142 +1,77 @@
 // JS modules
 import Snap from 'snapsvg';
-import Piece from './model/Piece.js';
+import Root from './model/Root.js';
+import Parent from './model/Parent.js';
+import Background from './model/Background.js';
+import MenuElement from './model/MenuElement.js';
 // CSS
 require('!style-loader!css-loader!../css/style.css');
-// require('!style-loader!css-loader!../fonts/myfrida/font.css');
 
 var colors = require('./colors.js');
-var types = require('./ElementTypes.js');
-var shirt = {},
-  tie = {},
-  rombos = {},
-  back = {};
 
-shirt.name = "Shirt";
-tie.name = "Tie";
-rombos.name = "Rombos";
-back.name = "Back";
+// Elements
+var shirt = new Root("Shirt",{colors:colors.shirt});
+var tie = new Root("Tie",{colors:colors.tie});
+var rombos = new Parent("Rombos",{colors:colors.tie});
+var back = new Background("Background",{colors:colors.background});
 
-shirt.index = 0;
-tie.index = 0;
-rombos.index = 0;
-back.index = 0;
-
-shirt.colors = colors.shirt;
-tie.colors = colors.tie;
-rombos.colors = colors.tie;
-back.colors = colors.background;
+//Menu
+var shirt_M = new MenuElement("Shirt", shirt);
+var tie_M = new MenuElement("Tie", tie);
+var rombos_M = new MenuElement("Rombos", rombos);
+var back_M = new MenuElement("Rombos", rombos);
 
 window.onload = function() {
   // Find pato
   var pato = Snap("#pato");
   var top = pato.g();
-  // Pato elements:
-  shirt.svg = pato.select("#shirt");
-  tie.svg = pato.select("#tie");
-  rombos.svg = pato.select("#rombos");
-  back.svg = document.body;
+  // Set graphic elements
+  shirt.setSVG(pato.select("#shirt"));
+  tie.setSVG(pato.select("#tie"));
+  rombos.setSVG(pato.select("#rombos"));
+  back.setSVG(document.body);
   // Icons
-  Snap.load("./svg/Camisa.svg", function(f) {
-    var root = f.select("#root");
-    root.transform('t750,100');
-    top.add(root);
-  });
-  Snap.load("./svg/Corbata.svg", function(f) {
-    var root = f.select("#root");
-    root.transform('t785,250');
-    top.add(root);
-  });
-  Snap.load("./svg/Rombo.svg", function(f) {
-    var root = f.select("#root");
-    root.transform('t765,400');
-    top.add(root);
-  });
+  shirt_M.setIcon("./svg/Camisa.svg", top, 't750,100');
+  tie_M.setIcon("./svg/Corbata.svg", top, 't785,250');
+  rombos_M.setIcon("./svg/Rombo.svg", top, 't765,400');
+
   // Buttons
   Snap.load("./svg/FlechaIzq.svg", function(f) {
     var root = f.select("#root");
-
-    var shirt_but = root.clone();
-    shirt_but.click(function() {
-      ArrowAction(shirt, -1, types.Root);
+    shirt_M.setLeftArrow(root.clone(), top, 't680 130 s0.6 0.6');
+    shirt_M.arrows.left.click(function() {
+      shirt.updateIndex(-1);
     });
-    shirt_but.transform('t680 130 s0.6 0.6');
-    top.add(shirt_but);
-
-    var tie_but = root.clone();
-    tie_but.click(function() {
-      ArrowAction(tie, -1, types.Root);
+    tie_M.setLeftArrow(root.clone(), top, 't680 280 s0.6 0.6');
+    tie_M.arrows.left.click(function() {
+      tie.updateIndex(-1);
     });
-    tie_but.transform('t680 280 s0.6 0.6');
-    top.add(tie_but);
-
-    var rombos_but = root.clone();
-    rombos_but.click(function() {
-      ArrowAction(rombos, -1, types.Children);
+    rombos_M.setLeftArrow(root.clone(), top, 't680 420 s0.6 0.6');
+    rombos_M.arrows.left.click(function() {
+      rombos.updateIndex(-1);
     });
-    rombos_but.transform('t680 420 s0.6 0.6');
-    top.add(rombos_but);
-
-    var back_but = root.clone();
-    back_but.click(function() {
-      ArrowAction(back, -1, types.Background);
+    back_M.setLeftArrow(root.clone(), top, 't740 530 s0.6 0.6');
+    back_M.arrows.left.click(function() {
+      back.updateIndex(-1);
     });
-    back_but.transform('t740 530 s0.6 0.6');
-    top.add(back_but);
   });
   Snap.load("./svg/FlechaDer.svg", function(f) {
     var root = f.select("#root");
-
-    var shirt_but = root.clone();
-    shirt_but.click(function() {
-      ArrowAction(shirt, 1, types.Root);
+    shirt_M.setRightArrow(root.clone(), top, 't875 130 s0.6 0.66');
+    shirt_M.arrows.right.click(function() {
+      shirt.updateIndex(1);
     });
-    shirt_but.transform('t875 130 s0.6 0.6');
-    top.add(shirt_but);
-
-    var tie_but = root.clone();
-    tie_but.click(function() {
-      ArrowAction(tie, 1, types.Root);
+    tie_M.setRightArrow(root.clone(), top, 't875 280 s0.6 0.6');
+    tie_M.arrows.right.click(function() {
+      tie.updateIndex(1);
     });
-    tie_but.transform('t875 280 s0.6 0.6');
-    top.add(tie_but);
-
-    var rombos_but = root.clone();
-    rombos_but.click(function() {
-      ArrowAction(rombos, 1, types.Children);
+    rombos_M.setRightArrow(root.clone(), top, 't875 420 s0.6 0.6');
+    rombos_M.arrows.right.click(function() {
+      rombos.updateIndex(1);
     });
-    rombos_but.transform('t875 420 s0.6 0.6');
-    top.add(rombos_but);
-
-    var back_but = root.clone();
-    back_but.click(function() {
-      ArrowAction(back, 1, types.Background);
+    back_M.setRightArrow(root.clone(), top, 't820 530 s0.6 0.6');
+    back_M.arrows.right.click(function() {
+      back.updateIndex(1);
     });
-    back_but.transform('t820 530 s0.6 0.6');
-    top.add(back_but);
   });
-};
-
-var ArrowAction = function(obj, dir, type) {
-  console.log("Object: " + obj.name + "\nDir: " + ((dir > 0) ? "+1" : "-1"));
-  obj.index = obj.index + dir;
-  var c = obj.colors[Math.abs(obj.index % obj.colors.length)];
-  switch (type) {
-    case types.Root:
-      obj.svg.attr({
-        fill: c
-      });
-      break;
-    case types.Children:
-      for (var i = 0; i < obj.svg.children().length; i++) {
-        if (obj.svg.children()[i].type == "rect" || obj.svg.children()[i].type == "path")
-          obj.svg.children()[i].attr({
-            fill: c
-          });
-      }
-      break;
-    case types.Background:
-      obj.svg.style.backgroundColor = c;
-      break;
-  }
 };
