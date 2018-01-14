@@ -10,10 +10,18 @@ require('!style-loader!css-loader!../css/style.css');
 var colors = require('./colors.js');
 
 // Elements
-var shirt = new Root("Shirt",{colors:colors.shirt});
-var tie = new Root("Tie",{colors:colors.tie});
-var rombos = new Parent("Rombos",{colors:colors.tie});
-var back = new Background("Background",{colors:colors.background});
+var shirt = new Root("Shirt", {
+  colors: colors.shirt
+});
+var tie = new Root("Tie", {
+  colors: colors.tie
+});
+var rombos = new Parent("Rombos", {
+  colors: colors.tie
+});
+var back = new Background("Background", {
+  colors: colors.background
+});
 
 //Menu
 var shirt_M = new MenuElement("Shirt", shirt);

@@ -4,7 +4,7 @@ export default class Observable {
   }
 
   addObserver(label, callback) {
-    this.observers.has(label) || this.observers.set(label, []);    
+    this.observers.has(label) || this.observers.set(label, []);
     this.observers.get(label).push(callback);
   }
 

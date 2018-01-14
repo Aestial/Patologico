@@ -81,7 +81,7 @@ class Piece extends __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* default */]
   setSVG(svg) {
     this.svg = svg;
   }
-  updateIndex(dir){
+  updateIndex(dir) {
     console.log("Object: " + this.name);
     console.log("Index: " + this.index + ((dir > 0) ? " +1" : " -1"));
     this.index += dir;
@@ -103,7 +103,7 @@ class Observable {
   }
 
   addObserver(label, callback) {
-    this.observers.has(label) || this.observers.set(label, []);    
+    this.observers.has(label) || this.observers.set(label, []);
     this.observers.get(label).push(callback);
   }
 
@@ -146,10 +146,18 @@ __webpack_require__(8);
 var colors = __webpack_require__(13);
 
 // Elements
-var shirt = new __WEBPACK_IMPORTED_MODULE_1__model_Root_js__["a" /* default */]("Shirt",{colors:colors.shirt});
-var tie = new __WEBPACK_IMPORTED_MODULE_1__model_Root_js__["a" /* default */]("Tie",{colors:colors.tie});
-var rombos = new __WEBPACK_IMPORTED_MODULE_2__model_Parent_js__["a" /* default */]("Rombos",{colors:colors.tie});
-var back = new __WEBPACK_IMPORTED_MODULE_3__model_Background_js__["a" /* default */]("Background",{colors:colors.background});
+var shirt = new __WEBPACK_IMPORTED_MODULE_1__model_Root_js__["a" /* default */]("Shirt", {
+  colors: colors.shirt
+});
+var tie = new __WEBPACK_IMPORTED_MODULE_1__model_Root_js__["a" /* default */]("Tie", {
+  colors: colors.tie
+});
+var rombos = new __WEBPACK_IMPORTED_MODULE_2__model_Parent_js__["a" /* default */]("Rombos", {
+  colors: colors.tie
+});
+var back = new __WEBPACK_IMPORTED_MODULE_3__model_Background_js__["a" /* default */]("Background", {
+  colors: colors.background
+});
 
 //Menu
 var shirt_M = new __WEBPACK_IMPORTED_MODULE_4__model_MenuElement_js__["a" /* default */]("Shirt", shirt);
@@ -8863,17 +8871,17 @@ return Snap;
 
 
 class Root extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
-    constructor(name, properties) {
-        super(name, properties);
-        this.className = 'Root';
-    }
-    updateColor(index){
-      var l = this.properties.colors.length;
-      var c = this.properties.colors[Math.abs(index % l)];
-      this.svg.attr({
-        fill: c
-      });
-    }
+  constructor(name, properties) {
+    super(name, properties);
+    this.className = 'Root';
+  }
+  updateColor(index) {
+    var l = this.properties.colors.length;
+    var c = this.properties.colors[Math.abs(index % l)];
+    this.svg.attr({
+      fill: c
+    });
+  }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Root;
 
@@ -9652,20 +9660,75 @@ colors = {
     "#000000"
   ],
   background: [
-    "#ff00ff", //
+    "#a02c5a",
+    "#c8b7be",
+    "#ff80b2",
+    "#aa0044",
+    "#6c5367",
+    "#d35fbc",
+    "#800066",
+    "#550044",
+    "#660080",
+    "#7c6f91",
+    "#7137c8",
+    "#ccaaff",
+    "#7f2aff",
+    "#5500d4",
+    "#5555ff",
+    "#535d6c",
+    "#87aade",
+    "#2a7fff",
+    "#0044aa",
+    "#0088aa",
+    "#006680",
+    "#004455",
+    "#6f918a",
+    "#87decd",
+    "#00aa88",
+    "#008066",
+    "#005544",
+    "#6f917c",
+    "#2ca05a",
+    "#80ffb3",
+    "#b7c8b7",
+    "#536c53",
+    "#87de87",
+    "#217821",
+    "#165016",
+    "#bec8b7",
+    "#5d6c53",
+    "#aade87",
+    "#71c837",
+    "#225500",
+    "#a7ac93",
+    "#454837",
+    "#88aa00",
+    "#445500",
+    "#aca793",
+    "#6c6753",
+    "#c8ab37",
+    "#ffcc00",
+    "#806600",
+    "#6c5d53",
+    "#c87137",
+    "#784421",
+    "#ff9955",
+    "#d45500",
+    "#803300",
+    "#ac9393",
+    "#483737",
+    "#ffaaaa",
+    "#ff00ff",
     "#800080",
-    "#0000ff", //
-    "#00ffff", //
+    "#0000ff",
     "#008080",
-    "#00ff00", //
+    "#00ff00",
     "#008000",
-    "#ffff00", //
-    "#808000", //
-    "#ff0000", //
+    "#808000",
+    "#ff0000",
     "#999999",
     "#666666",
     "#333333",
-    "#ffffff", //
     "#800000",
     "#cccccc"
   ]

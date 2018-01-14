@@ -10,7 +10,7 @@ export default class Piece extends Observable {
   setSVG(svg) {
     this.svg = svg;
   }
-  updateIndex(dir){
+  updateIndex(dir) {
     console.log("Object: " + this.name);
     console.log("Index: " + this.index + ((dir > 0) ? " +1" : " -1"));
     this.index += dir;

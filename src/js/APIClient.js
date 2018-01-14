@@ -27,9 +27,9 @@ APIClient.appRecord = {
     pieces: [{
       name: 'Camisa',
       props: {
-        
+
       }
-    },{
+    }, {
 
     }]
   }]
