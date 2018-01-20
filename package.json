@@ -4,6 +4,7 @@
   "description": "patologico svg front end webpage",
   "main": "/js/app.js",
   "scripts": {
+    "build": "webpack",
     "start:dev": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -21,7 +21,7 @@ body {
 	}
 }
 
-/* #contactMenu {
+#social {
   color: #f2f2f2;
   font-weight: bold;
   font-style: italic;
@@ -34,21 +34,21 @@ body {
   padding: 0px 0px 10px 0px;
 }
 
-#contactMenu ul {
+#social ul {
   padding: 0 30px;
 }
 
-#contactMenu li {
+#social li {
   display: inline-block;
   position: relative;
 }
 
-#contactMenu li a {
+#social li a {
   display: block;
   margin: 0 20px 0 0;
   color: #1e1e1e;
 }
 
-#contactMenu li a:hover {
+#social li a:hover {
   color: #4f4f4f;
-} */
+}
