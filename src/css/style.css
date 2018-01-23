@@ -5,50 +5,43 @@ html, body {
 
 body {
   font-family: MyFrida, helvetica;
-  color: #000;
+  color: #fff;
   background-color: #696969;
 }
-#pato {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	bottom: 0;
-}
-@media only screen and (orientation: portrait) {
-	#pato {
-		width: auto;
-		transform: translate(-23%, 10%);
-	}
+
+h1, h2 {
+  padding: 10px;
+  margin-bottom: 8px;
 }
 
-#social {
+.title {
+  font-size: 5.5vmax;
   color: #f2f2f2;
-  font-weight: bold;
-  font-style: italic;
-  font-size: 1.1em;
+  padding: 20px;
+}
+
+.subtitle {
+  font-size: 2.6vmax;
+  margin: 5px;
+}
+
+.name {
+  font-size: 3.2vmax;
+  margin: 12px;
+}
+
+.cell {
+  margin: 60px;
+}
+
+.social {
+  width: 50px;
   height: 50px;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  z-index: 10;
-  padding: 0px 0px 10px 0px;
+  padding: 10px;
 }
 
-#social ul {
-  padding: 0 30px;
-}
-
-#social li {
-  display: inline-block;
-  position: relative;
-}
-
-#social li a {
-  display: block;
-  margin: 0 20px 0 0;
-  color: #1e1e1e;
-}
-
-#social li a:hover {
-  color: #4f4f4f;
+.social img {
+  margin: 12px;
+  width: inherit;
+  height: inherit;
 }

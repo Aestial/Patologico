@@ -1,11 +1,12 @@
 import Observable from '../Observable';
 
 export default class Piece extends Observable {
-  constructor(name, properties = {}) {
+  constructor(name, colors, properties = {}) {
     super();
     this.name = name;
+    this.colors = colors;
     this.properties = properties;
-    this.index = 0;
+    this.index = Math.floor(Math.random() * this.colors.length);
   }
   setSVG(svg) {
     this.svg = svg;

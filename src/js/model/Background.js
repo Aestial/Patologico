@@ -6,8 +6,8 @@ export default class Background extends Piece {
     this.className = 'Background';
   }
   updateColor(index) {
-    var l = this.properties.colors.length;
-    var c = this.properties.colors[Math.abs(index % l)];
+    var l = this.colors.length;
+    var c = this.colors[Math.abs(index % l)];
     this.svg.style.backgroundColor = c;
   }
 }

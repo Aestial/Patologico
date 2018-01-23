@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "forkit": "^0.2.0",
+    "materialize-css": "^0.100.2",
     "snapsvg": "^0.5.1"
   },
   "devDependencies": {

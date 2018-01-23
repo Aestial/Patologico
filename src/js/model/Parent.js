@@ -6,8 +6,8 @@ export default class Parent extends Piece {
     this.className = 'Parent';
   }
   updateColor(index) {
-    var l = this.properties.colors.length;
-    var c = this.properties.colors[Math.abs(index % l)];
+    var l = this.colors.length;
+    var c = this.colors[Math.abs(index % l)];
     for (var i = 0; i < this.svg.children().length; i++) {
       if (this.svg.children()[i].type == "rect" || this.svg.children()[i].type == "path")
         this.svg.children()[i].attr({

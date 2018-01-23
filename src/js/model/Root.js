@@ -6,8 +6,8 @@ export default class Root extends Piece {
     this.className = 'Root';
   }
   updateColor(index) {
-    var l = this.properties.colors.length;
-    var c = this.properties.colors[Math.abs(index % l)];
+    var l = this.colors.length;
+    var c = this.colors[Math.abs(index % l)];
     this.svg.attr({
       fill: c
     });

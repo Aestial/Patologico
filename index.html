@@ -5,9 +5,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
 	<title>Patológico</title>
-	<!--APP-->
 	<link rel="stylesheet" type="text/css" href="src/fonts/myfrida/font.css" />
-	<script type="text/javascript" src="dist/bundle.js"></script>
+	<!-- <script type="text/javascript" src="dist/bundle.js"></script> -->
 </head>
 
 <body>
@@ -1180,25 +1179,73 @@
 	    inkscape:connector-curvature="0"
 	    sodipodi:nodetypes="csccccc"/>
 	</svg>
+	<div class="plus-button" onclick="side.toggle(true);"></div>
+	<!-- Slide Menu -->
+	<ul id="slide-out" class="side-nav">
+		<li>
+			<div class="user-view">
+				<div class="background">
+					<img src="src/img/back.jpg">
+				</div>
+				<a href="#!user"><img class="circle" src="src/img/diego.jpg">></a>
+				<a href="#!name"><span class="white-text name">Diego Rivera</span></a>
+				<a href="#!email"><span class="white-text email">felatio69@hotmail.com</span></a>
+			</div>
+		</li>
+		<li>
+			<div class='option'>
+				<a class="button" href="#!user"><img onclick="pato.option(0,false)" src="src/svg/left.svg">></a>
+				<a href="#!user"><img class="icon" src="src/svg/camisa.svg">></a>
+				<a class="button" href="#!user"><img onclick="pato.option(0,true)" src="src/svg/right.svg">></a>
+			</div>
+		</li>
+		<li>
+			<div class='option'>
+				<a class="button" href="#!user"><img onclick="pato.option(1,false)"  src="src/svg/left.svg">></a>
+				<a href="#!user"><img class="icon" src="src/svg/corbata.svg">></a>
+				<a class="button" href="#!user"><img onclick="pato.option(1,true)" src="src/svg/right.svg">></a>
+			</div>
+		</li>
+		<li>
+			<div class='option'>
+				<a class="button" href="#!user"><img onclick="pato.option(2,false)" src="src/svg/left.svg">></a>
+				<a href="#!user"><img class="icon" src="src/svg/rombo.svg">></a>
+				<a class="button" href="#!user"><img onclick="pato.option(2,true)" src="src/svg/right.svg">></a>
+			</div>
+		</li>
+		<li>
+			<div class='option'>
+				<a class="button" href="#!user"><img onclick="pato.option(3,false)" src="src/svg/left.svg">></a>
+				<a href="#!user"><img class="icon" src="src/img/square.png">></a>
+				<a class="button" href="#!user"><img onclick="pato.option(3,true)" src="src/svg/right.svg">></a>
+			</div>
+		</li>
+
+	</ul>
+	<a href="#" data-activates="slide-out" class="button-collapse"></a>
+	<!-- <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons"></i></a> -->
 	<!-- The contents (if there's no contents the ribbon acts as a link) -->
 	<div class="forkit-curtain">
 		<div class="close-button"></div>
-		<h2>PATOLOGICO</h2>
-		<h2>CREADO POR ESTUDIO CINQUE</h2>
-		<small>Facebook: <a href="https://www.facebook.com/3ETGames/">Third Eye Team</a></small>
-		<img src="http://placekitten.com/g/200/200">
+		<h1 class='title'>PATOLÓGICO</h1>
+		<div class='cell'>
+			<h2 class="subtitle">Diseño:</h2>
+			<h3 class="name">David Rosales</h3>
+			<a class='social' target="_blank" href="https://www.instagram.com/d4v1t.r/"><img src="src/img/instagram.png" alt="David-Instagram"></a>
+			<a class='social' target="_blank" href="https://www.facebook.com/d4v1t.R"><img src="src/img/facebook.png" alt="David-Facebook"></a>
+		</div>
+		<div class='cell'>
+			<h2 class="subtitle">Programación:</h2>
+			<h3 class="name">Jaime Hernández</h3>
+			<a class='social' target="_blank" href="http://game-dev.tumblr.com/"><img src="src/img/tumblr.png" alt="Jaime-Tumblr"></a>
+			<a class='social' target="_blank" href="https://github.com/Aestial/"><img src="src/img/github.png" alt="Jaime-Github"></a>
+			<a class='social' target="_blank" href="https://twitter.com/Aestial"><img src="src/img/twitter.png" alt="Jaime-Twitter"></a>
+			<!-- <a class='social' target="_blank" href="https://www.facebook.com/3ETGames/"><img src="src/img/facebook.png" alt="Jaime-Facebook"></a> -->
+		</div>
 	</div>
-
 	<!-- The ribbon -->
-	<a class="forkit" data-text="Créditos" data-text-detached="Jala ->" href="https://github.com/Aestial/Patologico"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Creditos"></a>
-
-	<div id="social">
-		<ul>
-			<li><a href="https://www.facebook.com/d4v1t.R/" target="_blank">Facebook</a></li>
-			<li><a href="https://www.instagram.com/d4v1t.r/" target="_blank">Instagram</a></li>
-			<li><a href="https://github.com/Aestial/" target="_blank">Github</a></li>
-		</ul>
-	</div>
+	<a class="forkit" data-text="Créditos" data-text-detached="Jala ⇾" href="https://github.com/Aestial/Patologico"><img style="position: absolute; top: 0; right: 0; border: 0;" src="src/img/ribbon.png" alt="Credits"></a>
+	<script type="text/javascript" src="dist/bundle.js"></script>
 </body>
 
 </html>
