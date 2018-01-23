@@ -1,6 +1,6 @@
 .side-nav {
   color: #fff;
-  background-color: rgba(5,5,5,0.85);
+  background-color: rgba(5, 5, 5, 0.85);
 }
 
 .plus-button {
@@ -12,17 +12,46 @@
   cursor: pointer;
   background-repeat: no-repeat;
   background-size: contain;
-  background-image:
-  url('../img/plus.png');
+  background-image: url('../img/plus.png');
 }
-.option {
+
+.menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
   margin-top: 50px;
   margin-bottom: 50px;
 }
-.icon {
-  width: 80px;
-  height: 100px;
+
+.option {
+  /* display: block;
+  margin: auto; */
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
+
+.option-container {
+  text-align: center;
+}
+
+.icon {
+  display: inline-block;
+}
+
+.icon img {
+  display: block;
+  margin: auto;
+  width: 120px;
+  height: 80px;
+}
+
+.button {
+  display: inline-block;
+  transform: translateY(-30%);
+}
+
 .button img {
   width: 45px;
   height: 45px;

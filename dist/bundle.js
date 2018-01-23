@@ -24452,7 +24452,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, ".side-nav {\n  color: #fff;\n  background-color: rgba(5,5,5,0.85);\n}\n\n.plus-button {\n  position: absolute;\n  width: 50px;\n  height: 50px;\n  left: 30px;\n  bottom: 30px;\n  cursor: pointer;\n  background-repeat: no-repeat;\n  background-size: contain;\n  background-image:\n  url(" + escape(__webpack_require__(28)) + ");\n}\n.option {\n  margin-top: 50px;\n  margin-bottom: 50px;\n}\n.icon {\n  width: 80px;\n  height: 100px;\n}\n.button img {\n  width: 45px;\n  height: 45px;\n  padding: 5px;\n}\n", ""]);
+exports.push([module.i, ".side-nav {\n  color: #fff;\n  background-color: rgba(5, 5, 5, 0.85);\n}\n\n.plus-button {\n  position: absolute;\n  width: 50px;\n  height: 50px;\n  left: 30px;\n  bottom: 30px;\n  cursor: pointer;\n  background-repeat: no-repeat;\n  background-size: contain;\n  background-image: url(" + escape(__webpack_require__(28)) + ");\n}\n\n.menu {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 100%;\n  transform: translate(-50%, -50%);\n  margin-top: 50px;\n  margin-bottom: 50px;\n}\n\n.option {\n  /* display: block;\n  margin: auto; */\n  padding-top: 50px;\n  padding-bottom: 50px;\n}\n\n.option-container {\n  text-align: center;\n}\n\n.icon {\n  display: inline-block;\n}\n\n.icon img {\n  display: block;\n  margin: auto;\n  width: 120px;\n  height: 80px;\n}\n\n.button {\n  display: inline-block;\n  transform: translateY(-30%);\n}\n\n.button img {\n  width: 45px;\n  height: 45px;\n  padding: 5px;\n}\n", ""]);
 
 // exports
 
@@ -33583,7 +33583,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, ".forkit-curtain {\n  text-align: center;\n  background: rgba( 0, 0, 0, 0.85);\n  padding-top: 10%;\n}\n\n.forkit-curtain .close-button {\n  position: absolute;\n  width: 40px;\n  height: 40px;\n  right: 30px;\n  top: 30px;\n  cursor: pointer;\n  background-repeat: no-repeat;\n  background-size: contain;\n  background-image:\n  url(" + escape(__webpack_require__(42)) + "); \n}\n.sharing {\n  position: absolute;\n  bottom: 16px;\n  left: 20px;\n}\n", ""]);
+exports.push([module.i, ".forkit-curtain {\n  text-align: center;\n  background: rgba( 0, 0, 0, 0.85);\n  padding-top: 2%;\n}\n\n.forkit-curtain .close-button {\n  position: absolute;\n  width: 40px;\n  height: 40px;\n  right: 30px;\n  top: 30px;\n  cursor: pointer;\n  background-repeat: no-repeat;\n  background-size: contain;\n  background-image:\n  url(" + escape(__webpack_require__(42)) + ");\n}\n\nh1, h2 {\n  padding: 10px;\n  margin-bottom: 8px;\n}\n\n.title {\n  font-size: 5.5vh;\n  color: #f2f2f2;\n  padding: 20px;\n}\n\n.subtitle {\n  font-size: 2.6vh;\n  margin: 5px;\n}\n\n.name {\n  font-size: 3.2vh;\n  margin: 12px;\n}\n\n.cell {\n  margin: 50px;\n  margin-top: 3%;\n  margin-bottom: 3%;\n}\n\n.social {\n  width: 50px;\n  height: 50px;\n  padding: 10px;\n}\n\n.social img {\n  margin: 12px;\n  width: inherit;\n  height: inherit;\n}\n", ""]);
 
 // exports
 
@@ -33634,7 +33634,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "html, body {\n  margin: 0;\n  overflow: hidden\n}\n\nbody {\n  font-family: MyFrida, helvetica;\n  color: #fff;\n  background-color: #696969;\n}\n\nh1, h2 {\n  padding: 10px;\n  margin-bottom: 8px;\n}\n\n.title {\n  font-size: 5.5vmax;\n  color: #f2f2f2;\n  padding: 20px;\n}\n\n.subtitle {\n  font-size: 2.6vmax;\n  margin: 5px;\n}\n\n.name {\n  font-size: 3.2vmax;\n  margin: 12px;\n}\n\n.cell {\n  margin: 60px;\n}\n\n.social {\n  width: 50px;\n  height: 50px;\n  padding: 10px;\n}\n\n.social img {\n  margin: 12px;\n  width: inherit;\n  height: inherit;\n}\n", ""]);
+exports.push([module.i, "html, body {\n  margin: 0;\n  overflow: hidden\n}\n\nbody {\n  font-family: MyFrida, helvetica;\n  color: #fff;\n  background-color: #696969;\n}\n", ""]);
 
 // exports
 
