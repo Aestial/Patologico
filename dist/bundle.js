@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,7 +68,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__(3);
 
 
 class Piece extends __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* default */] {
@@ -94,6 +94,460 @@ class Piece extends __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* default */]
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(selector) {
+		if (typeof memo[selector] === "undefined") {
+			var styleTarget = fn.call(this, selector);
+			// Special case to return head of iframe instead of iframe itself
+			if (styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[selector] = styleTarget;
+		}
+		return memo[selector]
+	};
+})(function (target) {
+	return document.querySelector(target)
+});
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(9);
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+	if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertInto + " " + options.insertAt.before);
+		target.insertBefore(style, nextSibling);
+	} else {
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	options.attrs.type = "text/css";
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	options.attrs.type = "text/css";
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = options.transform(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -123,47 +577,54 @@ class Observable {
 
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snapsvg__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snapsvg__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snapsvg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_snapsvg__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_Root_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_Parent_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_Background_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_MenuElement_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_forkit_css_forkit_css__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_forkit_css_forkit_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_forkit_css_forkit_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_Root_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_Parent_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_Background_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__model_MenuElement_js__ = __webpack_require__(13);
 // JS modules
+
+
+// import * as forkit from 'forkit/js/forkit';
+__webpack_require__(6);
+
 
 
 
 
 
 // CSS
-__webpack_require__(8);
+__webpack_require__(14);
 
-var colors = __webpack_require__(13);
+var colors = __webpack_require__(16);
 
 // Elements
-var shirt = new __WEBPACK_IMPORTED_MODULE_1__model_Root_js__["a" /* default */]("Shirt", {
+var shirt = new __WEBPACK_IMPORTED_MODULE_2__model_Root_js__["a" /* default */]("Shirt", {
   colors: colors.shirt
 });
-var tie = new __WEBPACK_IMPORTED_MODULE_1__model_Root_js__["a" /* default */]("Tie", {
+var tie = new __WEBPACK_IMPORTED_MODULE_2__model_Root_js__["a" /* default */]("Tie", {
   colors: colors.tie
 });
-var rombos = new __WEBPACK_IMPORTED_MODULE_2__model_Parent_js__["a" /* default */]("Rombos", {
+var rombos = new __WEBPACK_IMPORTED_MODULE_3__model_Parent_js__["a" /* default */]("Rombos", {
   colors: colors.tie
 });
-var back = new __WEBPACK_IMPORTED_MODULE_3__model_Background_js__["a" /* default */]("Background", {
+var back = new __WEBPACK_IMPORTED_MODULE_4__model_Background_js__["a" /* default */]("Background", {
   colors: colors.background
 });
 
 //Menu
-var shirt_M = new __WEBPACK_IMPORTED_MODULE_4__model_MenuElement_js__["a" /* default */]("Shirt", shirt);
-var tie_M = new __WEBPACK_IMPORTED_MODULE_4__model_MenuElement_js__["a" /* default */]("Tie", tie);
-var rombos_M = new __WEBPACK_IMPORTED_MODULE_4__model_MenuElement_js__["a" /* default */]("Rombos", rombos);
-var back_M = new __WEBPACK_IMPORTED_MODULE_4__model_MenuElement_js__["a" /* default */]("Rombos", rombos);
+var shirt_M = new __WEBPACK_IMPORTED_MODULE_5__model_MenuElement_js__["a" /* default */]("Shirt", shirt);
+var tie_M = new __WEBPACK_IMPORTED_MODULE_5__model_MenuElement_js__["a" /* default */]("Tie", tie);
+var rombos_M = new __WEBPACK_IMPORTED_MODULE_5__model_MenuElement_js__["a" /* default */]("Rombos", rombos);
+var back_M = new __WEBPACK_IMPORTED_MODULE_5__model_MenuElement_js__["a" /* default */]("Rombos", rombos);
 
 window.onload = function() {
   // Find pato
@@ -222,7 +683,7 @@ window.onload = function() {
 
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
@@ -8863,127 +9324,392 @@ return Snap;
 }.call(window));
 
 /***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(0);
-
-
-class Root extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
-  constructor(name, properties) {
-    super(name, properties);
-    this.className = 'Root';
-  }
-  updateColor(index) {
-    var l = this.properties.colors.length;
-    var c = this.properties.colors[Math.abs(index % l)];
-    this.svg.attr({
-      fill: c
-    });
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Root;
-
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(0);
-
-
-class Parent extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
-  constructor(name, properties) {
-    super(name, properties);
-    this.className = 'Parent';
-  }
-  updateColor(index) {
-    var l = this.properties.colors.length;
-    var c = this.properties.colors[Math.abs(index % l)];
-    for (var i = 0; i < this.svg.children().length; i++) {
-      if (this.svg.children()[i].type == "rect" || this.svg.children()[i].type == "path")
-        this.svg.children()[i].attr({
-          fill: c
-        });
-    }
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Parent;
-
-
-
-/***/ }),
 /* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(0);
+/*!
+ * forkit.js 0.2
+ * http://lab.hakim.se/forkit-js
+ * MIT licensed
+ *
+ * Created by Hakim El Hattab, http://hakim.se
+ */
+(function(){
+	console.log("forkit.js loaded!");
 
+	var STATE_CLOSED = 0,
+		STATE_DETACHED = 1,
+		STATE_OPENED = 2,
 
-class Background extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
-  constructor(name, properties) {
-    super(name, properties);
-    this.className = 'Background';
-  }
-  updateColor(index) {
-    var l = this.properties.colors.length;
-    var c = this.properties.colors[Math.abs(index % l)];
-    this.svg.style.backgroundColor = c;
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Background;
+		TAG_HEIGHT = 30,
+		TAG_WIDTH = 200,
+		MAX_STRAIN = 40,
 
+		// Factor of page height that needs to be dragged for the
+		// curtain to fall
+		DRAG_THRESHOLD = 0.36;
+
+		VENDORS = [ 'Webkit', 'Moz', 'O', 'ms' ];
+
+	var dom = {
+			ribbon: null,
+			ribbonString: null,
+			ribbonTag: null,
+			curtain: null,
+			closeButton: null
+		},
+
+		// The current state of the ribbon
+		state = STATE_CLOSED,
+
+		// Ribbon text, correlates to states
+		closedText = '',
+		detachedText = '',
+
+		friction = 1.04;
+		gravity = 1.5,
+
+		// Resting position of the ribbon when curtain is closed
+		closedX = TAG_WIDTH * 0.4,
+		closedY = -TAG_HEIGHT * 0.5,
+
+		// Resting position of the ribbon when curtain is opened
+		openedX = TAG_WIDTH * 0.4,
+		openedY = TAG_HEIGHT,
+
+		velocity = 0,
+		rotation = 45,
+
+		curtainTargetY = 0,
+		curtainCurrentY = 0,
+
+		dragging = false,
+		dragTime = 0,
+		dragY = 0,
+
+		anchorA = new Point( closedX, closedY ),
+		anchorB = new Point( closedX, closedY ),
+
+		mouse = new Point();
+
+	function initialize() {
+		console.log("forkit.js initialized!");
+
+		dom.ribbon = document.querySelector( '.forkit' );
+		console.log(dom.ribbon);
+		dom.curtain = document.querySelector( '.forkit-curtain' );
+		dom.closeButton = document.querySelector( '.forkit-curtain .close-button' );
+
+		if( dom.ribbon ) {
+
+			// Fetch label texts from DOM
+			closedText = dom.ribbon.getAttribute( 'data-text' ) || '';
+			detachedText = dom.ribbon.getAttribute( 'data-text-detached' ) || closedText;
+
+			// Construct the sub-elements required to represent the
+			// tag and string that it hangs from
+			dom.ribbon.innerHTML = '<span class="string"></span><span class="tag">' + closedText + '</span>';
+			dom.ribbonString = dom.ribbon.querySelector( '.string' );
+			dom.ribbonTag = dom.ribbon.querySelector( '.tag' );
+
+			// Bind events
+			dom.ribbon.addEventListener( 'click', onRibbonClick, false );
+			document.addEventListener( 'mousemove', onMouseMove, false );
+			document.addEventListener( 'mousedown', onMouseDown, false );
+			document.addEventListener( 'mouseup', onMouseUp, false );
+			document.addEventListener( 'touchstart', onTouchStart, false);
+			document.addEventListener( 'touchmove', onTouchMove, false);
+			document.addEventListener( 'touchend', onTouchEnd, false);
+			window.addEventListener( 'resize', layout, false );
+
+			if( dom.closeButton ) {
+				dom.closeButton.addEventListener( 'click', onCloseClick, false );
+			}
+
+			// Start the animation loop
+			animate();
+
+		}
+
+	}
+
+	function onMouseDown( event ) {
+		if( dom.curtain && state === STATE_DETACHED ) {
+			event.preventDefault();
+			dragY = event.clientY;
+			dragTime = Date.now();
+			dragging = true;
+
+		}
+	}
+
+	function onMouseMove( event ) {
+		mouse.x = event.clientX;
+		mouse.y = event.clientY;
+	}
+
+	function onMouseUp( event ) {
+		if( state !== STATE_OPENED ) {
+			state = STATE_CLOSED;
+			dragging = false;
+		}
+	}
+
+	function onTouchStart( event ) {
+		if( dom.curtain && state === STATE_DETACHED ) {
+			event.preventDefault();
+			var touch = event.touches[0];
+			dragY = touch.clientY;
+			dragTime = Date.now();
+			dragging = true;
+		}
+	}
+
+	function onTouchMove( event ) {
+		var touch = event.touches[0];
+		mouse.x = touch.pageX;
+		mouse.y = touch.pageY;
+	}
+
+	function onTouchEnd( event ) {
+		if( state !== STATE_OPENED ) {
+			state = STATE_CLOSED;
+			dragging = false;
+		}
+	}
+
+	function onRibbonClick( event ) {
+		if( dom.curtain ) {
+			event.preventDefault();
+
+			if( state === STATE_OPENED ) {
+				close();
+			}
+			else if( Date.now() - dragTime < 300 ) {
+				open();
+			}
+		}
+	}
+
+	function onCloseClick( event ) {
+		event.preventDefault();
+		close();
+	}
+
+	function layout() {
+		if( state === STATE_OPENED ) {
+			curtainTargetY = window.innerHeight;
+			curtainCurrentY = curtainTargetY;
+		}
+	}
+
+	function open() {
+		dragging = false;
+		state = STATE_OPENED;
+		dispatchEvent( 'forkit-open' );
+	}
+
+	function close() {
+		dragging = false;
+		state = STATE_CLOSED;
+		dom.ribbonTag.innerHTML = closedText;
+		dispatchEvent( 'forkit-close' );
+	}
+
+	function detach() {
+		state = STATE_DETACHED;
+		dom.ribbonTag.innerHTML = detachedText;
+	}
+
+	function animate() {
+		update();
+		render();
+
+		requestAnimFrame( animate );
+	}
+
+	function update() {
+		// Distance between mouse and top right corner
+		var distance = distanceBetween( mouse.x, mouse.y, window.innerWidth, 0 );
+
+		// If we're OPENED the curtainTargetY should ease towards page bottom
+		if( state === STATE_OPENED ) {
+			curtainTargetY = Math.min( curtainTargetY + ( window.innerHeight - curtainTargetY ) * 0.2, window.innerHeight );
+		}
+		else {
+
+			// Detach the tag when hovering close enough
+			if( distance < TAG_WIDTH * 1.5 ) {
+				detach();
+			}
+			// Re-attach the tag if the user moved away
+			else if( !dragging && state === STATE_DETACHED && distance > TAG_WIDTH * 2 ) {
+				close();
+			}
+
+			if( dragging ) {
+				// Updat the curtain position while dragging
+				curtainTargetY = Math.max( mouse.y - dragY, 0 );
+
+				// If the threshold is crossed, open the curtain
+				if( curtainTargetY > window.innerHeight * DRAG_THRESHOLD ) {
+					open();
+				}
+			}
+			else {
+				curtainTargetY *= 0.8;
+			}
+
+		}
+
+		// Ease towards the target position of the curtain
+		curtainCurrentY += ( curtainTargetY - curtainCurrentY ) * 0.3;
+
+		// If we're dragging or detached we need to simulate
+		// the physical behavior of the ribbon
+		if( dragging || state === STATE_DETACHED ) {
+
+			// Apply forces
+			velocity /= friction;
+			velocity += gravity;
+
+			var containerOffsetX = dom.ribbon.offsetLeft;
+
+			var offsetX = Math.max( ( ( mouse.x - containerOffsetX ) - closedX ) * 0.2, -MAX_STRAIN );
+
+			anchorB.x += ( ( closedX + offsetX ) - anchorB.x ) * 0.1;
+			anchorB.y += velocity;
+
+			var strain = distanceBetween( anchorA.x, anchorA.y, anchorB.x, anchorB.y );
+
+			if( strain > MAX_STRAIN ) {
+				velocity -= Math.abs( strain ) / ( MAX_STRAIN * 1.25 );
+			}
+
+			var dy = Math.max( mouse.y - anchorB.y, 0 ),
+				dx = mouse.x - ( containerOffsetX + anchorB.x );
+
+			// Angle the ribbon towards the mouse but limit it avoid extremes
+			var angle = Math.min( 130, Math.max( 50, Math.atan2( dy, dx ) * 180 / Math.PI ) );
+
+			rotation += ( angle - rotation ) * 0.1;
+		}
+		// Ease ribbon towards the OPENED state
+		else if( state === STATE_OPENED ) {
+			anchorB.x += ( openedX - anchorB.x ) * 0.2;
+			anchorB.y += ( openedY - anchorB.y ) * 0.2;
+
+			rotation += ( 90 - rotation ) * 0.02;
+		}
+		// Ease ribbon towards the CLOSED state
+		else {
+			anchorB.x += ( anchorA.x - anchorB.x ) * 0.2;
+			anchorB.y += ( anchorA.y - anchorB.y ) * 0.2;
+
+			rotation += ( 45 - rotation ) * 0.2;
+		}
+	}
+
+	function render() {
+
+		if( dom.curtain ) {
+			dom.curtain.style.top = - 100 + Math.min( ( curtainCurrentY / window.innerHeight ) * 100, 100 ) + '%';
+		}
+
+		dom.ribbon.style[ prefix( 'transform' ) ] = transform( 0, curtainCurrentY, 0 );
+		dom.ribbonTag.style[ prefix( 'transform' ) ] = transform( anchorB.x, anchorB.y, rotation );
+
+		var dy = anchorB.y - anchorA.y,
+			dx = anchorB.x - anchorA.x;
+
+		var angle = Math.atan2( dy, dx ) * 180 / Math.PI;
+
+		dom.ribbonString.style.width = anchorB.y + 'px';
+		dom.ribbonString.style[ prefix( 'transform' ) ] = transform( anchorA.x, 0, angle );
+
+	}
+
+	function prefix( property, el ) {
+		var propertyUC = property.slice( 0, 1 ).toUpperCase() + property.slice( 1 );
+
+		for( var i = 0, len = VENDORS.length; i < len; i++ ) {
+			var vendor = VENDORS[i];
+
+			if( typeof ( el || document.body ).style[ vendor + propertyUC ] !== 'undefined' ) {
+				return vendor + propertyUC;
+			}
+		}
+
+		return property;
+	}
+
+	function transform( x, y, r ) {
+		return 'translate('+x+'px,'+y+'px) rotate('+r+'deg)';
+	}
+
+	function distanceBetween( x1, y1, x2, y2 ) {
+		var dx = x1-x2;
+		var dy = y1-y2;
+		return Math.sqrt(dx*dx + dy*dy);
+	}
+
+	function dispatchEvent( type ) {
+		var event = document.createEvent( 'HTMLEvents', 1, 2 );
+		event.initEvent( type, true, true );
+		dom.ribbon.dispatchEvent( event );
+	}
+
+	/**
+	 * Defines a 2D position.
+	 */
+	function Point( x, y ) {
+		this.x = x || 0;
+		this.y = y || 0;
+	}
+
+	Point.prototype.distanceTo = function( x, y ) {
+		var dx = x-this.x;
+		var dy = y-this.y;
+		return Math.sqrt(dx*dx + dy*dy);
+	};
+
+	Point.prototype.clone = function() {
+		return new Point( this.x, this.y );
+	};
+
+	Point.prototype.interpolate = function( x, y, amp ) {
+		this.x += ( x - this.x ) * amp;
+		this.y += ( y - this.y ) * amp;
+	};
+
+	window.requestAnimFrame = (function(){
+		return  window.requestAnimationFrame 		||
+				window.webkitRequestAnimationFrame	||
+				window.mozRequestAnimationFrame		||
+				window.oRequestAnimationFrame		||
+				window.msRequestAnimationFrame		||
+				function( callback ){
+					window.setTimeout(callback, 1000 / 60);
+				};
+	})();
+
+	window.addEventListener('load', onLoaded)
+	function onLoaded() {
+	  initialize();
+	}
+	// initialize();
+
+})();
 
 
 /***/ }),
 /* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__(1);
-
-
-class MenuElement extends __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* default */] {
-  constructor(name, piece, properties = {}) {
-    super();
-    this.name = name;
-    this.piece = piece;
-    this.properties = properties;
-    this.arrows = {};
-  }
-  setIcon(path, top, transform) {
-    this.icon = Snap.load(path, function(f) {
-      var root = f.select("#root");
-      root.transform(transform);
-      top.add(root);
-    });
-  }
-  setLeftArrow(svg, top, transform) {
-    this.arrows.left = svg;
-    this.arrows.left.transform(transform);
-    top.add(this.arrows.left);
-  }
-  setRightArrow(svg, top, transform) {
-    this.arrows.right = svg;
-    this.arrows.right.transform(transform);
-    top.add(this.arrows.right);
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = MenuElement;
-
-
-
-/***/ }),
-/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(9);
+var content = __webpack_require__(8);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -8991,14 +9717,14 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(11)(content, options);
+var update = __webpack_require__(2)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js!./style.css", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js!./style.css");
+		module.hot.accept("!!../../css-loader/index.js!./forkit.css", function() {
+			var newContent = require("!!../../css-loader/index.js!./forkit.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -9008,475 +9734,21 @@ if(false) {
 }
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(10)(false);
+exports = module.exports = __webpack_require__(1)(false);
 // imports
 
 
 // module
-exports.push([module.i, "html, body {\n  margin: 0;\n  overflow: hidden\n}\n\nbody {\n  font-family: MyFrida, helvetica;\n  color: #000;\n  background-color: #696969;\n}\n#pato {\n\tposition: absolute;\n\twidth: 100%;\n\theight: 100%;\n\tbottom: 0;\n}\n@media only screen and (orientation: portrait) {\n\t#pato {\n\t\twidth: auto;\n\t\ttransform: translate(-23%, 10%);\n\t}\n}\n\n#social {\n  color: #f2f2f2;\n  font-weight: bold;\n  font-style: italic;\n  font-size: 1.1em;\n  height: 50px;\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  padding: 0px 0px 10px 0px;\n}\n\n#social ul {\n  padding: 0 30px;\n}\n\n#social li {\n  display: inline-block;\n  position: relative;\n}\n\n#social li a {\n  display: block;\n  margin: 0 20px 0 0;\n  color: #1e1e1e;\n}\n\n#social li a:hover {\n  color: #4f4f4f;\n}\n", ""]);
+exports.push([module.i, "\n* {\n\tmargin: 0px;\n\tpadding: 0px;\n\n\t-webkit-box-sizing: border-box;\n\t   -moz-box-sizing: border-box;\n\t        box-sizing: border-box;\n}\n\n.forkit {\n\tposition: fixed;\n\tright: 0;\n\ttop: 0;\n\n\twidth: 200px;\n\theight: 150px;\n\n\tfont-family: 'Lato', sans-serif;\n\ttext-decoration: none;\n}\n\t.forkit .tag {\n\t\tdisplay: block;\n\t\theight: 30px;\n\t\twidth: 200px;\n\n\t\tcolor: #fff;\n\t\tbackground: #aa0000;\n\t\ttext-align: center;\n\t\tfont-size: 13px;\n\t\tfont-weight: bold;\n\t\tline-height: 30px;\n\t\tbox-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.4 );\n\n\t\t-webkit-transform-origin: 15px 0px;\n\t\t   -moz-transform-origin: 15px 0px;\n\t\t    -ms-transform-origin: 15px 0px;\n\t\t     -o-transform-origin: 15px 0px;\n\t\t        transform-origin: 15px 0px;\n\t}\n\t.forkit .tag:after {\n\t\tcontent: '';\n\t\tdisplay: block;\n\t\tposition: absolute;\n\t\ttop: 0;\n\t\tleft: 0;\n\t\twidth: 196px;\n\t\theight: 26px;\n\t\tmargin: 1px;\n\t\tborder: 1px solid rgba( 255, 255, 255, 0.4 );\n\t}\n\t.forkit .string {\n\t\tdisplay: block;\n\t\theight: 1px;\n\t\twidth: 0px;\n\t\tposition: absolute;\n\n\t\tbackground: rgba( 255, 255, 255, 0.7 );\n\t\tbox-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.4 );\n\n\t\t-webkit-transform-origin: 0px 0px;\n\t\t   -moz-transform-origin: 0px 0px;\n\t\t    -ms-transform-origin: 0px 0px;\n\t\t     -o-transform-origin: 0px 0px;\n\t\t        transform-origin: 0px 0px;\n\t}\n\n\n.forkit-curtain {\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\ttop: -100%;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-
-var stylesInDom = {};
-
-var	memoize = function (fn) {
-	var memo;
-
-	return function () {
-		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-		return memo;
-	};
-};
-
-var isOldIE = memoize(function () {
-	// Test for IE <= 9 as proposed by Browserhacks
-	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
-	// Tests for existence of standard globals is to allow style-loader
-	// to operate correctly into non-standard environments
-	// @see https://github.com/webpack-contrib/style-loader/issues/177
-	return window && document && document.all && !window.atob;
-});
-
-var getElement = (function (fn) {
-	var memo = {};
-
-	return function(selector) {
-		if (typeof memo[selector] === "undefined") {
-			var styleTarget = fn.call(this, selector);
-			// Special case to return head of iframe instead of iframe itself
-			if (styleTarget instanceof window.HTMLIFrameElement) {
-				try {
-					// This will throw an exception if access to iframe is blocked
-					// due to cross-origin restrictions
-					styleTarget = styleTarget.contentDocument.head;
-				} catch(e) {
-					styleTarget = null;
-				}
-			}
-			memo[selector] = styleTarget;
-		}
-		return memo[selector]
-	};
-})(function (target) {
-	return document.querySelector(target)
-});
-
-var singleton = null;
-var	singletonCounter = 0;
-var	stylesInsertedAtTop = [];
-
-var	fixUrls = __webpack_require__(12);
-
-module.exports = function(list, options) {
-	if (typeof DEBUG !== "undefined" && DEBUG) {
-		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-	}
-
-	options = options || {};
-
-	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
-
-	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-	// tags it will allow on a page
-	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
-
-	// By default, add <style> tags to the <head> element
-	if (!options.insertInto) options.insertInto = "head";
-
-	// By default, add <style> tags to the bottom of the target
-	if (!options.insertAt) options.insertAt = "bottom";
-
-	var styles = listToStyles(list, options);
-
-	addStylesToDom(styles, options);
-
-	return function update (newList) {
-		var mayRemove = [];
-
-		for (var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-
-			domStyle.refs--;
-			mayRemove.push(domStyle);
-		}
-
-		if(newList) {
-			var newStyles = listToStyles(newList, options);
-			addStylesToDom(newStyles, options);
-		}
-
-		for (var i = 0; i < mayRemove.length; i++) {
-			var domStyle = mayRemove[i];
-
-			if(domStyle.refs === 0) {
-				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
-
-				delete stylesInDom[domStyle.id];
-			}
-		}
-	};
-};
-
-function addStylesToDom (styles, options) {
-	for (var i = 0; i < styles.length; i++) {
-		var item = styles[i];
-		var domStyle = stylesInDom[item.id];
-
-		if(domStyle) {
-			domStyle.refs++;
-
-			for(var j = 0; j < domStyle.parts.length; j++) {
-				domStyle.parts[j](item.parts[j]);
-			}
-
-			for(; j < item.parts.length; j++) {
-				domStyle.parts.push(addStyle(item.parts[j], options));
-			}
-		} else {
-			var parts = [];
-
-			for(var j = 0; j < item.parts.length; j++) {
-				parts.push(addStyle(item.parts[j], options));
-			}
-
-			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-		}
-	}
-}
-
-function listToStyles (list, options) {
-	var styles = [];
-	var newStyles = {};
-
-	for (var i = 0; i < list.length; i++) {
-		var item = list[i];
-		var id = options.base ? item[0] + options.base : item[0];
-		var css = item[1];
-		var media = item[2];
-		var sourceMap = item[3];
-		var part = {css: css, media: media, sourceMap: sourceMap};
-
-		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
-		else newStyles[id].parts.push(part);
-	}
-
-	return styles;
-}
-
-function insertStyleElement (options, style) {
-	var target = getElement(options.insertInto)
-
-	if (!target) {
-		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
-	}
-
-	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
-
-	if (options.insertAt === "top") {
-		if (!lastStyleElementInsertedAtTop) {
-			target.insertBefore(style, target.firstChild);
-		} else if (lastStyleElementInsertedAtTop.nextSibling) {
-			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
-		} else {
-			target.appendChild(style);
-		}
-		stylesInsertedAtTop.push(style);
-	} else if (options.insertAt === "bottom") {
-		target.appendChild(style);
-	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
-		var nextSibling = getElement(options.insertInto + " " + options.insertAt.before);
-		target.insertBefore(style, nextSibling);
-	} else {
-		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
-	}
-}
-
-function removeStyleElement (style) {
-	if (style.parentNode === null) return false;
-	style.parentNode.removeChild(style);
-
-	var idx = stylesInsertedAtTop.indexOf(style);
-	if(idx >= 0) {
-		stylesInsertedAtTop.splice(idx, 1);
-	}
-}
-
-function createStyleElement (options) {
-	var style = document.createElement("style");
-
-	options.attrs.type = "text/css";
-
-	addAttrs(style, options.attrs);
-	insertStyleElement(options, style);
-
-	return style;
-}
-
-function createLinkElement (options) {
-	var link = document.createElement("link");
-
-	options.attrs.type = "text/css";
-	options.attrs.rel = "stylesheet";
-
-	addAttrs(link, options.attrs);
-	insertStyleElement(options, link);
-
-	return link;
-}
-
-function addAttrs (el, attrs) {
-	Object.keys(attrs).forEach(function (key) {
-		el.setAttribute(key, attrs[key]);
-	});
-}
-
-function addStyle (obj, options) {
-	var style, update, remove, result;
-
-	// If a transform function was defined, run it on the css
-	if (options.transform && obj.css) {
-	    result = options.transform(obj.css);
-
-	    if (result) {
-	    	// If transform returns a value, use that instead of the original css.
-	    	// This allows running runtime transformations on the css.
-	    	obj.css = result;
-	    } else {
-	    	// If the transform function returns a falsy value, don't add this css.
-	    	// This allows conditional loading of css
-	    	return function() {
-	    		// noop
-	    	};
-	    }
-	}
-
-	if (options.singleton) {
-		var styleIndex = singletonCounter++;
-
-		style = singleton || (singleton = createStyleElement(options));
-
-		update = applyToSingletonTag.bind(null, style, styleIndex, false);
-		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
-
-	} else if (
-		obj.sourceMap &&
-		typeof URL === "function" &&
-		typeof URL.createObjectURL === "function" &&
-		typeof URL.revokeObjectURL === "function" &&
-		typeof Blob === "function" &&
-		typeof btoa === "function"
-	) {
-		style = createLinkElement(options);
-		update = updateLink.bind(null, style, options);
-		remove = function () {
-			removeStyleElement(style);
-
-			if(style.href) URL.revokeObjectURL(style.href);
-		};
-	} else {
-		style = createStyleElement(options);
-		update = applyToTag.bind(null, style);
-		remove = function () {
-			removeStyleElement(style);
-		};
-	}
-
-	update(obj);
-
-	return function updateStyle (newObj) {
-		if (newObj) {
-			if (
-				newObj.css === obj.css &&
-				newObj.media === obj.media &&
-				newObj.sourceMap === obj.sourceMap
-			) {
-				return;
-			}
-
-			update(obj = newObj);
-		} else {
-			remove();
-		}
-	};
-}
-
-var replaceText = (function () {
-	var textStore = [];
-
-	return function (index, replacement) {
-		textStore[index] = replacement;
-
-		return textStore.filter(Boolean).join('\n');
-	};
-})();
-
-function applyToSingletonTag (style, index, remove, obj) {
-	var css = remove ? "" : obj.css;
-
-	if (style.styleSheet) {
-		style.styleSheet.cssText = replaceText(index, css);
-	} else {
-		var cssNode = document.createTextNode(css);
-		var childNodes = style.childNodes;
-
-		if (childNodes[index]) style.removeChild(childNodes[index]);
-
-		if (childNodes.length) {
-			style.insertBefore(cssNode, childNodes[index]);
-		} else {
-			style.appendChild(cssNode);
-		}
-	}
-}
-
-function applyToTag (style, obj) {
-	var css = obj.css;
-	var media = obj.media;
-
-	if(media) {
-		style.setAttribute("media", media)
-	}
-
-	if(style.styleSheet) {
-		style.styleSheet.cssText = css;
-	} else {
-		while(style.firstChild) {
-			style.removeChild(style.firstChild);
-		}
-
-		style.appendChild(document.createTextNode(css));
-	}
-}
-
-function updateLink (link, options, obj) {
-	var css = obj.css;
-	var sourceMap = obj.sourceMap;
-
-	/*
-		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
-		and there is no publicPath defined then lets turn convertToAbsoluteUrls
-		on by default.  Otherwise default to the convertToAbsoluteUrls option
-		directly
-	*/
-	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
-
-	if (options.convertToAbsoluteUrls || autoFixUrls) {
-		css = fixUrls(css);
-	}
-
-	if (sourceMap) {
-		// http://stackoverflow.com/a/26603875
-		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-	}
-
-	var blob = new Blob([css], { type: "text/css" });
-
-	var oldSrc = link.href;
-
-	link.href = URL.createObjectURL(blob);
-
-	if(oldSrc) URL.revokeObjectURL(oldSrc);
-}
-
-
-/***/ }),
-/* 12 */
+/* 9 */
 /***/ (function(module, exports) {
 
 
@@ -9571,7 +9843,166 @@ module.exports = function (css) {
 
 
 /***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(0);
+
+
+class Root extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
+  constructor(name, properties) {
+    super(name, properties);
+    this.className = 'Root';
+  }
+  updateColor(index) {
+    var l = this.properties.colors.length;
+    var c = this.properties.colors[Math.abs(index % l)];
+    this.svg.attr({
+      fill: c
+    });
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Root;
+
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(0);
+
+
+class Parent extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
+  constructor(name, properties) {
+    super(name, properties);
+    this.className = 'Parent';
+  }
+  updateColor(index) {
+    var l = this.properties.colors.length;
+    var c = this.properties.colors[Math.abs(index % l)];
+    for (var i = 0; i < this.svg.children().length; i++) {
+      if (this.svg.children()[i].type == "rect" || this.svg.children()[i].type == "path")
+        this.svg.children()[i].attr({
+          fill: c
+        });
+    }
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Parent;
+
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(0);
+
+
+class Background extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
+  constructor(name, properties) {
+    super(name, properties);
+    this.className = 'Background';
+  }
+  updateColor(index) {
+    var l = this.properties.colors.length;
+    var c = this.properties.colors[Math.abs(index % l)];
+    this.svg.style.backgroundColor = c;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Background;
+
+
+
+/***/ }),
 /* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__(3);
+
+
+class MenuElement extends __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* default */] {
+  constructor(name, piece, properties = {}) {
+    super();
+    this.name = name;
+    this.piece = piece;
+    this.properties = properties;
+    this.arrows = {};
+  }
+  setIcon(path, top, transform) {
+    this.icon = Snap.load(path, function(f) {
+      var root = f.select("#root");
+      root.transform(transform);
+      top.add(root);
+    });
+  }
+  setLeftArrow(svg, top, transform) {
+    this.arrows.left = svg;
+    this.arrows.left.transform(transform);
+    top.add(this.arrows.left);
+  }
+  setRightArrow(svg, top, transform) {
+    this.arrows.right = svg;
+    this.arrows.right.transform(transform);
+    top.add(this.arrows.right);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = MenuElement;
+
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(15);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(2)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../node_modules/css-loader/index.js!./style.css", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!./style.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "html, body {\n  margin: 0;\n  overflow: hidden\n}\n\nbody {\n  font-family: MyFrida, helvetica;\n  color: #000;\n  background-color: #696969;\n}\n#pato {\n\tposition: absolute;\n\twidth: 100%;\n\theight: 100%;\n\tbottom: 0;\n}\n@media only screen and (orientation: portrait) {\n\t#pato {\n\t\twidth: auto;\n\t\ttransform: translate(-23%, 10%);\n\t}\n}\n\n#social {\n  color: #f2f2f2;\n  font-weight: bold;\n  font-style: italic;\n  font-size: 1.1em;\n  height: 50px;\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  padding: 0px 0px 10px 0px;\n}\n\n#social ul {\n  padding: 0 30px;\n}\n\n#social li {\n  display: inline-block;\n  position: relative;\n}\n\n#social li a {\n  display: block;\n  margin: 0 20px 0 0;\n  color: #1e1e1e;\n}\n\n#social li a:hover {\n  color: #4f4f4f;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports) {
 
 colors = {

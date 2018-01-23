@@ -15,7 +15,12 @@
   ],
   "author": "Jaime Hernandez/David Rosales",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aestial/Patologico.git"
+  },
   "dependencies": {
+    "forkit": "^0.2.0",
     "snapsvg": "^0.5.1"
   },
   "devDependencies": {

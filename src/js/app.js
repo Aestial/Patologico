@@ -1,11 +1,16 @@
 // JS modules
 import Snap from 'snapsvg';
+
+// import * as forkit from 'forkit/js/forkit';
+require('forkit/js/forkit');
+import 'forkit/css/forkit.css';
+
 import Root from './model/Root.js';
 import Parent from './model/Parent.js';
 import Background from './model/Background.js';
 import MenuElement from './model/MenuElement.js';
 // CSS
-require('!style-loader!css-loader!../css/style.css');
+require('../css/style.css');
 
 var colors = require('./colors.js');
 
