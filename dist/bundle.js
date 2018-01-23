@@ -10985,9 +10985,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__css_style_css__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__css_style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__css_style_css__);
 // JS modules
-// import Snap from 'snapsvg';
 __webpack_require__(7);
-// require('./controller/side.js');
 
 
 
@@ -11004,81 +11002,10 @@ window.side = side;
 var character = new __WEBPACK_IMPORTED_MODULE_1__model_Character_js__["a" /* default */]();
 window.pato = character;
 
-// // Elements
-// var shirt = new Root("Shirt", colors.shirt);
-// var tie = new Root("Tie", colors.tie);
-// var rombos = new Parent("Rombos", colors.tie);
-// var back = new Background("Background", colors.background);
-//
-// //Menu
-// var shirt_M = new MenuElement("Shirt", shirt);
-// var tie_M = new MenuElement("Tie", tie);
-// var rombos_M = new MenuElement("Rombos", rombos);
-// var back_M = new MenuElement("Rombos", rombos);
-//
-window.addEventListener('load', onLoaded);
-
 function onLoaded() {
-
-  // // Find pato
-  // var pato = Snap("#pato");
-  // var top = pato.g();
-  // Set graphic elements
-  // shirt.setSVG(pato.select("#shirt"));
-  // tie.setSVG(pato.select("#tie"));
-  // rombos.setSVG(pato.select("#rombos"));
-  // back.setSVG(document.body);
-  // shirt.updateColor(shirt.index);
-  // tie.updateColor(tie.index);
-  // rombos.updateColor(rombos.index);
-  // back.updateColor(back.index);
-
   character.onLoaded();
-  // // Icons
-  // shirt_M.setIcon("./svg/Camisa.svg", top, 't750,100');
-  // tie_M.setIcon("./svg/Corbata.svg", top, 't785,250');
-  // rombos_M.setIcon("./svg/Rombo.svg", top, 't765,400');
-
-  // Buttons
-  // Snap.load("./svg/FlechaIzq.svg", function(f) {
-  //   var root = f.select("#root");
-  //   shirt_M.setLeftArrow(root.clone(), top, 't680 130 s0.6 0.6');
-  //   shirt_M.arrows.left.click(function() {
-  //     shirt.updateIndex(-1);
-  //   });
-  //   tie_M.setLeftArrow(root.clone(), top, 't680 280 s0.6 0.6');
-  //   tie_M.arrows.left.click(function() {
-  //     tie.updateIndex(-1);
-  //   });
-  //   rombos_M.setLeftArrow(root.clone(), top, 't680 420 s0.6 0.6');
-  //   rombos_M.arrows.left.click(function() {
-  //     rombos.updateIndex(-1);
-  //   });
-  //   back_M.setLeftArrow(root.clone(), top, 't740 530 s0.6 0.6');
-  //   back_M.arrows.left.click(function() {
-  //     back.updateIndex(-1);
-  //   });
-  // });
-  // Snap.load("./svg/FlechaDer.svg", function(f) {
-  //   var root = f.select("#root");
-  //   shirt_M.setRightArrow(root.clone(), top, 't875 130 s0.6 0.66');
-  //   shirt_M.arrows.right.click(function() {
-  //     shirt.updateIndex(1);
-  //   });
-  //   tie_M.setRightArrow(root.clone(), top, 't875 280 s0.6 0.6');
-  //   tie_M.arrows.right.click(function() {
-  //     tie.updateIndex(1);
-  //   });
-  //   rombos_M.setRightArrow(root.clone(), top, 't875 420 s0.6 0.6');
-  //   rombos_M.arrows.right.click(function() {
-  //     rombos.updateIndex(1);
-  //   });
-  //   back_M.setRightArrow(root.clone(), top, 't820 530 s0.6 0.6');
-  //   back_M.arrows.right.click(function() {
-  //     back.updateIndex(1);
-  //   });
-  // });
 }
+window.addEventListener('load', onLoaded);
 
 
 /***/ }),
@@ -24452,7 +24379,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, ".side-nav {\n  color: #fff;\n  background-color: rgba(5, 5, 5, 0.85);\n}\n\n.plus-button {\n  position: absolute;\n  width: 50px;\n  height: 50px;\n  left: 30px;\n  bottom: 30px;\n  cursor: pointer;\n  background-repeat: no-repeat;\n  background-size: contain;\n  background-image: url(" + escape(__webpack_require__(28)) + ");\n}\n\n.menu {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 100%;\n  transform: translate(-50%, -50%);\n  margin-top: 50px;\n  margin-bottom: 50px;\n}\n\n.option {\n  /* display: block;\n  margin: auto; */\n  padding-top: 50px;\n  padding-bottom: 50px;\n}\n\n.option-container {\n  text-align: center;\n}\n\n.icon {\n  display: inline-block;\n}\n\n.icon img {\n  display: block;\n  margin: auto;\n  width: 120px;\n  height: 80px;\n}\n\n.button {\n  display: inline-block;\n  transform: translateY(-30%);\n}\n\n.button img {\n  width: 45px;\n  height: 45px;\n  padding: 5px;\n}\n", ""]);
+exports.push([module.i, ".plus-button {\n  position: absolute;\n  width: 50px;\n  height: 50px;\n  left: 30px;\n  bottom: 30px;\n  cursor: pointer;\n  background-repeat: no-repeat;\n  background-size: contain;\n  background-image: url(" + escape(__webpack_require__(28)) + ");\n}\n\n.side-nav {\n  color: #fff;\n  background-color: rgba(5, 5, 5, 0.85);\n}\n\n.menu {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 100%;\n  transform: translate(-50%, -50%);\n  margin-bottom: 15px;\n}\n\n.option {\n  padding-top: 50px;\n  padding-bottom: 50px;\n}\n\n.option-container {\n  text-align: center;\n}\n\n.icon {\n  display: inline-block;\n}\n\n.icon img {\n  display: block;\n  margin: auto;\n  width: 120px;\n  height: 80px;\n}\n\n.button {\n  display: inline-block;\n  transform: translateY(-30%);\n}\n\n.button img {\n  width: 45px;\n  height: 45px;\n  padding: 5px;\n}\n", ""]);
 
 // exports
 
