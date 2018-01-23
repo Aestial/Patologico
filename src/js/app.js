@@ -4,6 +4,7 @@ import Snap from 'snapsvg';
 // import * as forkit from 'forkit/js/forkit';
 require('forkit/js/forkit');
 import 'forkit/css/forkit.css';
+import 'forkit/css/demo.css';
 
 import Root from './model/Root.js';
 import Parent from './model/Parent.js';
@@ -34,7 +35,9 @@ var tie_M = new MenuElement("Tie", tie);
 var rombos_M = new MenuElement("Rombos", rombos);
 var back_M = new MenuElement("Rombos", rombos);
 
-window.onload = function() {
+window.addEventListener('load', onLoaded);
+
+function onLoaded() {
   // Find pato
   var pato = Snap("#pato");
   var top = pato.g();
@@ -87,4 +90,4 @@ window.onload = function() {
       back.updateIndex(1);
     });
   });
-};
+}

@@ -65,35 +65,6 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__(3);
-
-
-class Piece extends __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* default */] {
-  constructor(name, properties = {}) {
-    super();
-    this.name = name;
-    this.properties = properties;
-    this.index = 0;
-  }
-  setSVG(svg) {
-    this.svg = svg;
-  }
-  updateIndex(dir) {
-    console.log("Object: " + this.name);
-    console.log("Index: " + this.index + ((dir > 0) ? " +1" : " -1"));
-    this.index += dir;
-    this.updateColor(this.index);
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Piece;
-
-
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports) {
 
 /*
@@ -175,7 +146,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -547,6 +518,35 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__(3);
+
+
+class Piece extends __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* default */] {
+  constructor(name, properties = {}) {
+    super();
+    this.name = name;
+    this.properties = properties;
+    this.index = 0;
+  }
+  setSVG(svg) {
+    this.svg = svg;
+  }
+  updateIndex(dir) {
+    console.log("Object: " + this.name);
+    console.log("Index: " + this.index + ((dir > 0) ? " +1" : " -1"));
+    this.index += dir;
+    this.updateColor(this.index);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Piece;
+
+
+
+/***/ }),
 /* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -586,10 +586,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snapsvg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_snapsvg__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_forkit_css_forkit_css__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_forkit_css_forkit_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_forkit_css_forkit_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_Root_js__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_Parent_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_Background_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__model_MenuElement_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_forkit_css_demo_css__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_forkit_css_demo_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_forkit_css_demo_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_Root_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_Parent_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__model_Background_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__model_MenuElement_js__ = __webpack_require__(15);
 // JS modules
 
 
@@ -601,32 +603,35 @@ __webpack_require__(6);
 
 
 
-// CSS
-__webpack_require__(14);
 
-var colors = __webpack_require__(16);
+// CSS
+__webpack_require__(16);
+
+var colors = __webpack_require__(18);
 
 // Elements
-var shirt = new __WEBPACK_IMPORTED_MODULE_2__model_Root_js__["a" /* default */]("Shirt", {
+var shirt = new __WEBPACK_IMPORTED_MODULE_3__model_Root_js__["a" /* default */]("Shirt", {
   colors: colors.shirt
 });
-var tie = new __WEBPACK_IMPORTED_MODULE_2__model_Root_js__["a" /* default */]("Tie", {
+var tie = new __WEBPACK_IMPORTED_MODULE_3__model_Root_js__["a" /* default */]("Tie", {
   colors: colors.tie
 });
-var rombos = new __WEBPACK_IMPORTED_MODULE_3__model_Parent_js__["a" /* default */]("Rombos", {
+var rombos = new __WEBPACK_IMPORTED_MODULE_4__model_Parent_js__["a" /* default */]("Rombos", {
   colors: colors.tie
 });
-var back = new __WEBPACK_IMPORTED_MODULE_4__model_Background_js__["a" /* default */]("Background", {
+var back = new __WEBPACK_IMPORTED_MODULE_5__model_Background_js__["a" /* default */]("Background", {
   colors: colors.background
 });
 
 //Menu
-var shirt_M = new __WEBPACK_IMPORTED_MODULE_5__model_MenuElement_js__["a" /* default */]("Shirt", shirt);
-var tie_M = new __WEBPACK_IMPORTED_MODULE_5__model_MenuElement_js__["a" /* default */]("Tie", tie);
-var rombos_M = new __WEBPACK_IMPORTED_MODULE_5__model_MenuElement_js__["a" /* default */]("Rombos", rombos);
-var back_M = new __WEBPACK_IMPORTED_MODULE_5__model_MenuElement_js__["a" /* default */]("Rombos", rombos);
+var shirt_M = new __WEBPACK_IMPORTED_MODULE_6__model_MenuElement_js__["a" /* default */]("Shirt", shirt);
+var tie_M = new __WEBPACK_IMPORTED_MODULE_6__model_MenuElement_js__["a" /* default */]("Tie", tie);
+var rombos_M = new __WEBPACK_IMPORTED_MODULE_6__model_MenuElement_js__["a" /* default */]("Rombos", rombos);
+var back_M = new __WEBPACK_IMPORTED_MODULE_6__model_MenuElement_js__["a" /* default */]("Rombos", rombos);
 
-window.onload = function() {
+window.addEventListener('load', onLoaded);
+
+function onLoaded() {
   // Find pato
   var pato = __WEBPACK_IMPORTED_MODULE_0_snapsvg___default()("#pato");
   var top = pato.g();
@@ -679,7 +684,7 @@ window.onload = function() {
       back.updateIndex(1);
     });
   });
-};
+}
 
 
 /***/ }),
@@ -9717,7 +9722,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(2)(content, options);
+var update = __webpack_require__(1)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -9737,7 +9742,7 @@ if(false) {
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(1)(false);
+exports = module.exports = __webpack_require__(0)(false);
 // imports
 
 
@@ -9844,10 +9849,55 @@ module.exports = function (css) {
 
 /***/ }),
 /* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(11);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../css-loader/index.js!./demo.css", function() {
+			var newContent = require("!!../../css-loader/index.js!./demo.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "body {\n\tbackground: #323232;\n\tfont-family: 'Lato', Times, 'Times New Roman', serif;\n\tfont-size: 16px;\n\tcolor: #eee;\n\toverflow-x: hidden;\n}\n\na {\n\tcolor: #74e685;\n\ttext-decoration: none;\n\n\t-webkit-transition: 0.15s color ease;\n\t   -moz-transition: 0.15s color ease;\n\t    -ms-transition: 0.15s color ease;\n\t     -o-transition: 0.15s color ease;\n\t        transition: 0.15s color ease;\n}\n\ta:hover {\n\t\tcolor: #d3f3d7;\n\t}\n\narticle {\n\tdisplay: inline-block;\n\tmargin: 20px;\n\twidth: 480px;\n}\n\nh1, h2 {\n\tfont-size: 24px;\n\tdisplay: inline-block;\n}\n\nh2 {\n\tcolor: #ccc;\n}\n\np {\n\tmargin: 10px 0 10px 0;\n\tfont-size: 15px;\n}\n\nsmall {\n\tdisplay: block;\n\tmargin: 10px 0 20px 0;\n\tcolor: #bbb;\n}\n\ndel {\n\topacity: 0.3;\n}\n\n.sharing {\n\tposition: absolute;\n\tbottom: 16px;\n\tleft: 20px;\n}\n\n.forkit-curtain {\n\ttext-align: center;\n\tbackground: rgba( 0, 0, 0, 0.8 );\n\tpadding-top: 10%;\n}\n\t.forkit-curtain  .close-button {\n\t\tposition: absolute;\n\t\twidth: 32px;\n\t\theight: 32px;\n\t\tright: 20px;\n\t\ttop: 20px;\n\t\tcursor: pointer;\n\n\t\tbackground: url(data:image/gif;base64,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);\n\t}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(2);
 
 
 class Root extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
@@ -9868,11 +9918,11 @@ class Root extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(2);
 
 
 class Parent extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
@@ -9896,11 +9946,11 @@ class Parent extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
 
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Piece__ = __webpack_require__(2);
 
 
 class Background extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */] {
@@ -9919,7 +9969,7 @@ class Background extends __WEBPACK_IMPORTED_MODULE_0__Piece__["a" /* default */]
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9957,13 +10007,13 @@ class MenuElement extends __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* defau
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(15);
+var content = __webpack_require__(17);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -9971,7 +10021,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(2)(content, options);
+var update = __webpack_require__(1)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -9988,10 +10038,10 @@ if(false) {
 }
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(1)(false);
+exports = module.exports = __webpack_require__(0)(false);
 // imports
 
 
@@ -10002,7 +10052,7 @@ exports.push([module.i, "html, body {\n  margin: 0;\n  overflow: hidden\n}\n\nbo
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports) {
 
 colors = {
