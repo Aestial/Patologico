@@ -22,6 +22,7 @@
   "dependencies": {
     "forkit": "^0.2.0",
     "materialize-css": "^0.100.2",
+    "mobile-detect": "^1.4.1",
     "snapsvg": "^0.5.1"
   },
   "devDependencies": {

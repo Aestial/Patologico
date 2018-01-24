@@ -1,4 +1,5 @@
 // JS modules
+import MobileDetect from 'mobile-detect';
 require('forkit/js/forkit');
 import Side from './controller/side.js';
 import Character from './model/Character.js';
@@ -8,7 +9,10 @@ import '../css/forkit.css';
 import '../css/forkit-curtain.css';
 import '../css/style.css';
 
-var loadScreen = $('#loadScreen');
+var md = new MobileDetect(window.navigator.userAgent);
+var isMobile = md.mobile() != null;
+
+var loading = $('#loading-screen');
 var safeTimeout = 527;
 
 var sideDom = $('.button-collapse');
@@ -18,10 +22,15 @@ window.side = side;
 var character = new Character();
 window.pato = character;
 
-function onLoaded() {
+var onLoaded = function() {
   character.onLoaded();
-  setTimeout(function () {
-    loadScreen.hide();
+  setTimeout(function() {
+    loading.hide();
   }, safeTimeout);
+};
+
+if (isMobile) {
+    console.log(md.mobile());
+} else {
+  window.addEventListener('load', onLoaded);
 }
-window.addEventListener('load', onLoaded);
