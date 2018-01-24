@@ -33471,7 +33471,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, ".forkit-curtain {\n  text-align: center;\n  background: rgba( 0, 0, 0, 0.85);\n  padding-top: 2%;\n}\n\n.forkit-curtain .close-button {\n  position: absolute;\n  width: 40px;\n  height: 40px;\n  right: 30px;\n  top: 30px;\n  cursor: pointer;\n  background-repeat: no-repeat;\n  background-size: contain;\n  background-image:\n  url(" + escape(__webpack_require__(40)) + ");\n}\n\nh1, h2 {\n  padding: 10px;\n  margin-bottom: 8px;\n}\n\n.title {\n  font-size: 5.5vh;\n  color: #f2f2f2;\n  padding: 20px;\n}\n\n.subtitle {\n  font-size: 2.6vh;\n  margin: 5px;\n}\n\n.name {\n  font-size: 3.2vh;\n  margin: 12px;\n}\n\n.cell {\n  margin: 50px;\n  margin-top: 3%;\n  margin-bottom: 3%;\n}\n\n.social {\n  width: 50px;\n  height: 50px;\n  padding: 10px;\n}\n\n.social img {\n  margin: 12px;\n  width: inherit;\n  height: inherit;\n}\n", ""]);
+exports.push([module.i, ".forkit-curtain {\n  text-align: center;\n  background: rgba( 0, 0, 0, 0.85);\n  padding-top: 3%;\n  z-index: 1000;\n}\n.forkit-curtain .close-button {\n  position: absolute;\n  width: 40px;\n  height: 40px;\n  right: 30px;\n  top: 30px;\n  cursor: pointer;\n  background-repeat: no-repeat;\n  background-size: contain;\n  background-image: url(" + escape(__webpack_require__(40)) + ");\n}\nh1, h2 {\n  padding: 10px;\n  margin-bottom: 8px;\n}\n.title {\n  font-size: 5.5vh;\n  color: #f2f2f2;\n  padding: 20px;\n}\n.subtitle {\n  font-size: 2.6vh;\n  margin: 5px;\n}\n.name {\n  font-size: 3.2vh;\n  margin: 12px;\n}\n.cell {\n  margin: 50px;\n  margin-top: 3%;\n  margin-bottom: 3%;\n}\n.social {\n  width: 50px;\n  height: 50px;\n  padding: 10px;\n}\n.social img {\n  margin: 12px;\n  width: inherit;\n  height: inherit;\n}", ""]);
 
 // exports
 
@@ -33522,7 +33522,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "html, body {\n  margin: 0;\n  overflow: hidden\n}\nbody {\n  font-family: MyFrida, helvetica;\n  color: #fff;\n  background-color: #696969;\n}\n.main {\n  position: fixed;\n  left: 10px;\n  bottom: 10px;\n  z-index: 10;\n}\n.main-button {\n  width: 80px;\n  height: 80px;\n  z-index: 10;\n  margin: 30px;\n}\n.main-button img {\n  width: 70px;\n  height: 70px;\n}", ""]);
+exports.push([module.i, "html, body {\n  margin: 0;\n  overflow: hidden\n}\nbody {\n  font-family: MyFrida, helvetica;\n  color: #fff;\n  background-color: #696969;\n}\n.main {\n  position: fixed;\n  left: 10px;\n  bottom: 10px;\n}\n.main-button {\n  width: 80px;\n  height: 80px;\n  margin: 30px;\n}\n.main-button img {\n  width: 70px;\n  height: 70px;\n}", ""]);
 
 // exports
 

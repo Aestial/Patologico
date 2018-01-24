@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
+  id="svg2"
   xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:cc="http://creativecommons.org/ns#"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -10,11 +10,10 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-  id="svg2"
   version="1.1"
   inkscape:version="0.91 r13725"
-  width="1603.2"
-  height="2184.5334"
+  width="1080"
+  height="720"
   sodipodi:docname="Patologico.svg"
   inkscape:export-filename="C:\Users\David\Desktop\Mister\Instagram 2.png"
   inkscape:export-xdpi="157.38342"
@@ -171,7 +170,7 @@
       <path
         style="fill:#218cba;fill-opacity:1;stroke:none"
         d="m 158.11317,880.45902 16.80669,-86.30465 12.26434,-77.21994 11.81011,-80.85382 14.53552,-49.51156 32.25068,-15.89827 53.59971,-18.62361 -5.56437,-6.92706 -1.9305,-22.5982 8.5169,-11.01521 8.17623,7.15423 15.10331,3.17959 -9.77533,16.54119 8.20484,20.51209 c -26.10608,89.00352 -65.87748,174.68882 -36.55914,274.85785 l 43.19043,36.74411 29.0085,-18.69437 10.31414,-18.04974 c 17.31701,-106.09579 9.05399,-196.55932 -17.40509,-275.90304 l 6.44632,-23.20685 -14.25514,-14.94885 22.56333,-2.0512 8.43274,-4.10245 -0.68373,-11.39563 10.02814,3.41869 4.78616,5.92575 2.27913,35.09847 c 0,0 69.74111,24.38662 72.47611,23.475 2.73496,-0.91167 3.64654,42.84751 3.64654,42.84751 l 13.67476,103.92801 15.95384,77.4902 21.4238,76.5785 4.55822,10.48397 -258.45251,0 z"
-        id="camisa"
+        id="shirt"
         inkscape:connector-curvature="0"
         sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccc"/>
     </g>
@@ -305,7 +304,7 @@
       <path
         style="fill:#800000;stroke:none"
         d="m 334.24496,516.57733 -22.24836,20.77607 10.46982,24.37502 c -44.44115,97.47089 -61.5254,188.62865 -37.97278,270.40864 l 46.2705,40.2553 36.55369,-36.55371 c 16.72318,-110.93327 7.99029,-199.59246 -17.12009,-273.92133 l 4.49609,-29.47167 z"
-        id="corbata"
+        id="tie"
         inkscape:connector-curvature="0"
         sodipodi:nodetypes="ccccccccc"/>
     </g>
