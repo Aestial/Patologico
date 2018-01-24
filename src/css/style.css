@@ -1,8 +1,10 @@
 html, body {
   margin: 0;
-  overflow: hidden
+  overflow: hidden;
+  overflow-x: hidden;
 }
 body {
+  position: relative;
   font-family: MyFrida, helvetica;
   color: #fff;
   background-color: #696969;
