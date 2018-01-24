@@ -5,11 +5,23 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
 	<title>Patológico</title>
+	<link rel="stylesheet" type="text/css" href="src/css/load.css" />
 	<link rel="stylesheet" type="text/css" href="src/fonts/myfrida/font.css" />
 	<!-- <script type="text/javascript" src="dist/bundle.js"></script> -->
 </head>
 
 <body>
+	<div id="loadScreen" style="width:100%; height:100%;">
+		<div id="logoCont">
+			<img id="logo" src="src/svg/camisa.svg"></img>
+		</div>
+	</div>
+	<div id="player">
+		<audio autoplay hidden>
+     <source src="src/sounds/quack.mp3" type="audio/mpeg">
+                If you're reading this, audio isn't supported.
+    </audio>
+	</div>
 	<svg id="pato" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 	  xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" id="svg2" version="1.1" inkscape:version="0.91 r13725" width="1080" height="720" sodipodi:docname="Patologico.svg" inkscape:export-filename="C:\Users\David\Desktop\Mister\Instagram 2.png"
 	  inkscape:export-xdpi="157.38342" inkscape:export-ydpi="157.38342" viewBox="-0.1 0 641.27998 873.81338">
@@ -1195,7 +1207,7 @@
 		<div class='menu'>
 			<div class='option'>
 				<div class='option-container'>
-					<div class="button"><img onclick="pato.option(0,false) " src="src/svg/left.svg "></div>
+					<div class="button"><img onclick="pato.option(0,false)" src="src/svg/left.svg "></div>
 					<div class="icon"><img src="src/svg/camisa.svg"></div>
 					<div class="button"><img onclick="pato.option(0,true) " src="src/svg/right.svg "></div>
 				</div>
@@ -1240,6 +1252,7 @@
 			<h2 class="subtitle">Programación:</h2>
 			<h3 class="name">Jaime Hernández</h3>
 			<a class='social' target="_blank" href="http://game-dev.tumblr.com/"><img src="src/img/tumblr.png" alt="Jaime-Tumblr"></a>
+			<a class='social' target="_blank" href="https://www.paypal.me/aestial/"><img src="src/img/paypal.png" alt="Jaime-Paypal"></a>
 			<a class='social' target="_blank" href="https://github.com/Aestial/"><img src="src/img/github.png" alt="Jaime-Github"></a>
 			<a class='social' target="_blank" href="https://twitter.com/Aestial"><img src="src/img/twitter.png" alt="Jaime-Twitter"></a>
 			<!-- <a class='social' target="_blank" href="https://www.facebook.com/3ETGames/"><img src="src/img/facebook.png" alt="Jaime-Facebook"></a> -->
