@@ -34567,7 +34567,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "html, body {\n  margin: 0;\n  overflow: hidden;\n  overflow-x: hidden;\n  overflow-y: hidden;\n}\nbody {\n  position: relative;\n  font-family: MyFrida, helvetica;\n  color: #fff;\n  background-color: #696969;\n}\n.main {\n  position: fixed;\n  left: 10px;\n  bottom: 10px;\n}\n.main-button {\n  width: 80px;\n  height: 80px;\n  margin: 30px;\n}\n.main-button img {\n  width: 70px;\n  height: 70px;\n}", ""]);
+exports.push([module.i, "html, body {\n  margin: 0;\n  overflow: hidden;\n}\nbody {\n  font-family: MyFrida, helvetica;\n  color: #fff;\n  background-color: #696969;\n}\n.main {\n  position: fixed;\n  left: 10px;\n  bottom: 10px;\n}\n.main-button {\n  width: 80px;\n  height: 80px;\n  margin: 30px;\n}\n.main-button img {\n  width: 70px;\n  height: 70px;\n}", ""]);
 
 // exports
 
