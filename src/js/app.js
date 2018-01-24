@@ -22,11 +22,17 @@ window.side = side;
 var character = new Character();
 window.pato = character;
 
-function onLoaded() {
+var onLoaded = function() {
   character.onLoaded();
   setTimeout(function() {
     loading.hide();
   }, safeTimeout);
+};
+
+if (isMobile) {
+    console.log(md.mobile());
+} else {
+  window.addEventListener('load', onLoaded);
 }
 
 function touchstart(e) {

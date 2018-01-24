@@ -10979,11 +10979,17 @@ window.side = side;
 var character = new __WEBPACK_IMPORTED_MODULE_2__model_Character_js__["a" /* default */]();
 window.pato = character;
 
-function onLoaded() {
+var onLoaded = function() {
   character.onLoaded();
   setTimeout(function() {
     loading.hide();
   }, safeTimeout);
+};
+
+if (isMobile) {
+    console.log(md.mobile());
+} else {
+  window.addEventListener('load', onLoaded);
 }
 
 function touchstart(e) {
