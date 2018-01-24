@@ -11,16 +11,16 @@
 </head>
 
 <body>
-	<div id="loadScreen" style="width:100%; height:100%;">
-		<div id="logoCont">
-			<img id="logo" src="src/svg/camisa.svg"></img>
-		</div>
-	</div>
 	<div id="player">
 		<audio autoplay hidden>
      <source src="src/sounds/quack.mp3" type="audio/mpeg">
                 If you're reading this, audio isn't supported.
     </audio>
+	</div>
+	<div id="loadScreen" style="width:100%; height:100%;">
+		<div id="logoCont">
+			<img id="logo" src="src/svg/camisa.svg"></img>
+		</div>
 	</div>
 	<svg id="pato" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 	  xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" id="svg2" version="1.1" inkscape:version="0.91 r13725" width="1080" height="720" sodipodi:docname="Patologico.svg" inkscape:export-filename="C:\Users\David\Desktop\Mister\Instagram 2.png"
@@ -1191,46 +1191,47 @@
 	    inkscape:connector-curvature="0"
 	    sodipodi:nodetypes="csccccc"/>
 	</svg>
-	<div class="plus-button" onclick="side.toggle(true);"></div>
+	<div class="main">
+		<div class="main-button"><img onclick="location.reload(true);" src="src/img/die.png"></div>
+		<div class="main-button"><img onclick="side.toggle(true);" src="src/img/plus.png"></div>
+	</div>
 	<!-- Slide Menu -->
 	<ul id="slide-out" class="side-nav">
-		<!-- <li>
-			<div class="user-view ">
+		<div class='side-menu'>
+			<!-- <div class="user-view ">
 				<div class="background ">
 					<img src="src/img/back.jpg ">
 				</div>
 				<a href="#!user "><img class="circle " src="src/img/diego.jpg ">></a>
 				<a href="#!name "><span class="white-text name ">Diego Rivera</span></a>
 				<a href="#!email "><span class="white-text email ">felatio69@hotmail.com</span></a>
-			</div>
-		</li> -->
-		<div class='menu'>
-			<div class='option'>
+			</div> -->
+			<div class='side-option'>
 				<div class='option-container'>
 					<div class="button"><img onclick="pato.option(0,false)" src="src/svg/left.svg "></div>
 					<div class="icon"><img src="src/svg/camisa.svg"></div>
 					<div class="button"><img onclick="pato.option(0,true) " src="src/svg/right.svg "></div>
 				</div>
 			</div>
-			<div class='option'>
+			<div class='side-option'>
 				<div class='option-container'>
 					<div class="button"><img onclick="pato.option(1,false) " src="src/svg/left.svg "></div>
 					<div class="icon"><img src="src/svg/corbata.svg"></div>
 					<div class="button"><img onclick="pato.option(1,true) " src="src/svg/right.svg "></div>
 				</div>
 			</div>
-			<div class='option'>
+			<div class='side-option'>
 				<div class='option-container'>
 					<div class="button"><img onclick="pato.option(2,false) " src="src/svg/left.svg "></div>
 					<div class="icon"><img src="src/svg/rombo.svg"></div>
 					<div class="button"><img onclick="pato.option(2,true) " src="src/svg/right.svg "></div>
 				</div>
 			</div>
-			<div class='option'>
+			<div class='side-option'>
 				<div class='option-container'>
 					<div class="button"><img onclick="pato.option(3,false) " src="src/svg/left.svg "></div>
 					<!-- <div class="icon"><img src="src/img/square.png"></div> -->
-					<div class="icon"></div>
+					<div id="background-icon" class="icon"></div>
 					<div class="button"><img onclick="pato.option(3,true) " src="src/svg/right.svg "></div>
 				</div>
 			</div>
@@ -1252,7 +1253,7 @@
 			<h2 class="subtitle">Programación:</h2>
 			<h3 class="name">Jaime Hernández</h3>
 			<a class='social' target="_blank" href="http://game-dev.tumblr.com/"><img src="src/img/tumblr.png" alt="Jaime-Tumblr"></a>
-			<a class='social' target="_blank" href="https://www.paypal.me/aestial/"><img src="src/img/paypal.png" alt="Jaime-Paypal"></a>
+			<!-- <a class='social' target="_blank" href="https://www.paypal.me/aestial/"><img src="src/img/paypal.png" alt="Jaime-Paypal"></a> -->
 			<a class='social' target="_blank" href="https://github.com/Aestial/"><img src="src/img/github.png" alt="Jaime-Github"></a>
 			<a class='social' target="_blank" href="https://twitter.com/Aestial"><img src="src/img/twitter.png" alt="Jaime-Twitter"></a>
 			<!-- <a class='social' target="_blank" href="https://www.facebook.com/3ETGames/"><img src="src/img/facebook.png" alt="Jaime-Facebook"></a> -->

@@ -9,7 +9,7 @@ import '../css/forkit-curtain.css';
 import '../css/style.css';
 
 var loadScreen = $('#loadScreen');
-var safeTimeout = 1000;
+var safeTimeout = 527;
 
 var sideDom = $('.button-collapse');
 var side = new Side(sideDom);

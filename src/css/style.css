@@ -2,9 +2,24 @@ html, body {
   margin: 0;
   overflow: hidden
 }
-
 body {
   font-family: MyFrida, helvetica;
   color: #fff;
   background-color: #696969;
+}
+.main {
+  position: fixed;
+  left: 10px;
+  bottom: 10px;
+  z-index: 10;
+}
+.main-button {
+  width: 80px;
+  height: 80px;
+  z-index: 10;
+  margin: 30px;
+}
+.main-button img {
+  width: 70px;
+  height: 70px;
 }

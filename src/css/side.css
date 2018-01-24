@@ -1,26 +1,12 @@
-.plus-button {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  left: 30px;
-  bottom: 30px;
-  cursor: pointer;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-image: url('../img/plus.png');
-}
-
 .side-nav {
   color: #fff;
   background-color: rgba(5, 5, 5, 0.85);
 }
-
 #sidenav-overlay {
   /* background-color: rgba(0, 0, 0, 0.13); */
   background-color: transparent;
 }
-
-.menu {
+.side-menu {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -28,34 +14,33 @@
   transform: translate(-50%, -50%);
   margin-bottom: 15px;
 }
-
-.option {
-  padding-top: 50px;
-  padding-bottom: 50px;
+.side-option {
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
-
 .option-container {
   text-align: center;
 }
-
 .icon {
   display: inline-block;
+  margin: 2px;
 }
-
 .icon img {
   display: block;
   margin: auto;
-  width: 120px;
-  height: 80px;
+  width: 160px;
+  height: 120px;
 }
-
 .button {
   display: inline-block;
-  transform: translateY(-30%);
+  transform: translateY(-55%);
+  margin: 6px;
 }
-
 .button img {
-  width: 45px;
-  height: 45px;
-  padding: 5px;
+  width: 55px;
+  height: 50px;
+}
+#background-icon {
+  width: 10px;
+  height: 90px;
 }
