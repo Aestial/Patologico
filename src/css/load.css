@@ -3,13 +3,12 @@
   /* display: none;
 	/* ------------ */
   position: absolute;
-  background-color: #cc8;
+  background-color: #6f8a91;
   left: 0%;
   top: 0%;
   width: 100%;
   height: 100%;
   z-index: 9999;
-  /* animation-duration: 4s; */
 }
 .logo-container {
   position: absolute;
@@ -19,9 +18,8 @@
   transform: translate(-50%, -50%);
 }
 .logo {
-  /* animation-duration: 1s;
-  animation-delay: 3s; */
-  transform: translateX(-20%);
+  width: 200px;
+  height: 150px;
 }
 .logo:hover {
   -webkit-filter: grayscale(0%) brightness(2000%);
