@@ -12020,6 +12020,7 @@ module.exports = function() {
  * Created by Hakim El Hattab, http://hakim.se
  */
 (function(){
+
 	var STATE_CLOSED = 0,
 		STATE_DETACHED = 1,
 		STATE_OPENED = 2,
@@ -12076,6 +12077,7 @@ module.exports = function() {
 		mouse = new Point();
 
 	function initialize() {
+
 		dom.ribbon = document.querySelector( '.forkit' );
 		dom.curtain = document.querySelector( '.forkit-curtain' );
 		dom.closeButton = document.querySelector( '.forkit-curtain .close-button' );
@@ -12372,13 +12374,11 @@ module.exports = function() {
 					window.setTimeout(callback, 1000 / 60);
 				};
 	})();
-	// initialize();
-	window.addEventListener('load', onLoaded)
-	function onLoaded() {
-	  initialize();
-	}
+
+	initialize();
 
 })();
+
 
 
 /***/ }),
@@ -25399,7 +25399,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, ".side-nav {\n  color: #fff;\n  background-color: rgba(5, 5, 5, 0.85);\n}\n#sidenav-overlay {\n  /* background-color: rgba(0, 0, 0, 0.13); */\n  background-color: transparent;\n}\n.side-menu {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 100%;\n  transform: translate(-50%, -50%);\n  margin-bottom: 15px;\n}\n.side-option {\n  margin-top: 50px;\n  margin-bottom: 50px;\n}\n.option-container {\n  text-align: center;\n}\n.icon {\n  display: inline-block;\n  margin: 2px;\n}\n.icon img {\n  display: block;\n  margin: auto;\n  width: 120px;\n  height: 120px;\n}\n.button {\n  display: inline-block;\n  transform: translateY(-55%);\n  margin: 6px;\n}\n.button img {\n  width: 50px;\n  height: 50px;\n}\n#background-icon {\n  width: 10px;\n  height: 90px;\n}", ""]);
+exports.push([module.i, ".side-nav {\r\n  color: #fff;\r\n  background-color: rgba(5, 5, 5, 0.85);\r\n}\r\n#sidenav-overlay {\r\n  /* background-color: rgba(0, 0, 0, 0.13); */\r\n  background-color: transparent;\r\n}\r\n.side-menu {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  width: 100%;\r\n  transform: translate(-50%, -50%);\r\n  margin-bottom: 15px;\r\n}\r\n.side-option {\r\n  margin-top: 50px;\r\n  margin-bottom: 50px;\r\n}\r\n.option-container {\r\n  text-align: center;\r\n}\r\n.icon {\r\n  display: inline-block;\r\n  margin: 2px;\r\n}\r\n.icon img {\r\n  display: block;\r\n  margin: auto;\r\n  width: 120px;\r\n  height: 120px;\r\n}\r\n.button {\r\n  display: inline-block;\r\n  transform: translateY(-55%);\r\n  margin: 6px;\r\n}\r\n.button img {\r\n  width: 50px;\r\n  height: 50px;\r\n}\r\n#background-icon {\r\n  width: 10px;\r\n  height: 90px;\r\n}", ""]);
 
 // exports
 
@@ -34426,7 +34426,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "#pato {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  bottom: 0;\n}\n\n@media only screen and (orientation: portrait) {\n  #pato {\n    width: auto;\n    transform: translate(-23%, 10%);\n  }\n}\n", ""]);
+exports.push([module.i, "#pato {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n  bottom: 0;\r\n}\r\n\r\n@media only screen and (orientation: portrait) {\r\n  #pato {\r\n    width: auto;\r\n    transform: translate(-23%, 10%);\r\n  }\r\n}\r\n", ""]);
 
 // exports
 
@@ -34471,7 +34471,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n* {\n\tmargin: 0px;\n\tpadding: 0px;\n\n\t-webkit-box-sizing: border-box;\n\t   -moz-box-sizing: border-box;\n\t        box-sizing: border-box;\n}\n\n.forkit {\n\tposition: fixed;\n\tright: 0;\n\ttop: 0;\n\n\twidth: 200px;\n\theight: 150px;\n\n\tfont-family: MyFrida, sans-serif;\n\ttext-decoration: none;\n}\n\t.forkit .tag {\n\t\tdisplay: block;\n\t\theight: 30px;\n\t\twidth: 200px;\n\n\t\tcolor: #fff;\n\t\tbackground: #000000;\n\t\ttext-align: center;\n\t\tfont-size: 13px;\n\t\tfont-weight: bold;\n\t\tline-height: 30px;\n\t\tbox-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.4 );\n\n\t\t-webkit-transform-origin: 15px 0px;\n\t\t   -moz-transform-origin: 15px 0px;\n\t\t    -ms-transform-origin: 15px 0px;\n\t\t     -o-transform-origin: 15px 0px;\n\t\t        transform-origin: 15px 0px;\n\t}\n\t.forkit .tag:after {\n\t\tcontent: '';\n\t\tdisplay: block;\n\t\tposition: absolute;\n\t\ttop: 0;\n\t\tleft: 0;\n\t\twidth: 196px;\n\t\theight: 26px;\n\t\tmargin: 1px;\n\t\tborder: 2px dotted rgba( 255, 255, 255, 0.4 );\n\t}\n\t.forkit .string {\n\t\tdisplay: block;\n\t\theight: 1px;\n\t\twidth: 0px;\n\t\tposition: absolute;\n\n\t\tbackground: rgba( 0, 0, 0, 0.8 );\n\t\tbox-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.4 );\n\n\t\t-webkit-transform-origin: 0px 0px;\n\t\t   -moz-transform-origin: 0px 0px;\n\t\t    -ms-transform-origin: 0px 0px;\n\t\t     -o-transform-origin: 0px 0px;\n\t\t        transform-origin: 0px 0px;\n\t}\n\n.forkit-curtain {\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\ttop: -100%;\n}\n", ""]);
+exports.push([module.i, "\r\n* {\r\n\tmargin: 0px;\r\n\tpadding: 0px;\r\n\r\n\t-webkit-box-sizing: border-box;\r\n\t   -moz-box-sizing: border-box;\r\n\t        box-sizing: border-box;\r\n}\r\n\r\n.forkit {\r\n\tposition: fixed;\r\n\tright: 0;\r\n\ttop: 0;\r\n\r\n\twidth: 200px;\r\n\theight: 150px;\r\n\r\n\tfont-family: MyFrida, sans-serif;\r\n\ttext-decoration: none;\r\n}\r\n\t.forkit .tag {\r\n\t\tdisplay: block;\r\n\t\theight: 30px;\r\n\t\twidth: 200px;\r\n\r\n\t\tcolor: #fff;\r\n\t\tbackground: #000000;\r\n\t\ttext-align: center;\r\n\t\tfont-size: 13px;\r\n\t\tfont-weight: bold;\r\n\t\tline-height: 30px;\r\n\t\tbox-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.4 );\r\n\r\n\t\t-webkit-transform-origin: 15px 0px;\r\n\t\t   -moz-transform-origin: 15px 0px;\r\n\t\t    -ms-transform-origin: 15px 0px;\r\n\t\t     -o-transform-origin: 15px 0px;\r\n\t\t        transform-origin: 15px 0px;\r\n\t}\r\n\t.forkit .tag:after {\r\n\t\tcontent: '';\r\n\t\tdisplay: block;\r\n\t\tposition: absolute;\r\n\t\ttop: 0;\r\n\t\tleft: 0;\r\n\t\twidth: 196px;\r\n\t\theight: 26px;\r\n\t\tmargin: 1px;\r\n\t\tborder: 2px dotted rgba( 255, 255, 255, 0.4 );\r\n\t}\r\n\t.forkit .string {\r\n\t\tdisplay: block;\r\n\t\theight: 1px;\r\n\t\twidth: 0px;\r\n\t\tposition: absolute;\r\n\r\n\t\tbackground: rgba( 0, 0, 0, 0.8 );\r\n\t\tbox-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.4 );\r\n\r\n\t\t-webkit-transform-origin: 0px 0px;\r\n\t\t   -moz-transform-origin: 0px 0px;\r\n\t\t    -ms-transform-origin: 0px 0px;\r\n\t\t     -o-transform-origin: 0px 0px;\r\n\t\t        transform-origin: 0px 0px;\r\n\t}\r\n\r\n.forkit-curtain {\r\n\tposition: fixed;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\ttop: -100%;\r\n}\r\n", ""]);
 
 // exports
 
@@ -34516,7 +34516,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, ".forkit-curtain {\n  text-align: center;\n  background: rgba( 0, 0, 0, 0.85);\n  padding-top: 20px;\n  z-index: 1000;\n}\n.forkit-curtain .close-button {\n  position: absolute;\n  width: 40px;\n  height: 40px;\n  right: 30px;\n  top: 30px;\n  cursor: pointer;\n}\nh1, h2 {\n  padding: 5px;\n  margin-bottom: 8px;\n}\n.title {\n  font-size: 5vh;\n  color: #f2f2f2;\n  padding: 20px;\n}\n.subtitle {\n  font-size: 2.4vh;\n  margin: 5px;\n}\n.name {\n  font-size: 3vh;\n  margin: 12px;\n}\n.cell {\n  margin: 20px;\n  margin-top: 2%;\n  margin-bottom: 2%;\n}\n.social {\n  width: 44px;\n  height: 44px;\n  padding: 10px;\n}\n.social img {\n  margin: 10px;\n  width: inherit;\n  height: inherit;\n}", ""]);
+exports.push([module.i, ".forkit-curtain {\r\n  text-align: center;\r\n  background: rgba( 0, 0, 0, 0.85);\r\n  padding-top: 20px;\r\n  z-index: 1000;\r\n}\r\n.forkit-curtain .close-button {\r\n  position: absolute;\r\n  width: 40px;\r\n  height: 40px;\r\n  right: 30px;\r\n  top: 30px;\r\n  cursor: pointer;\r\n}\r\nh1, h2 {\r\n  padding: 5px;\r\n  margin-bottom: 8px;\r\n}\r\n.title {\r\n  font-size: 5vh;\r\n  color: #f2f2f2;\r\n  padding: 20px;\r\n}\r\n.subtitle {\r\n  font-size: 2.4vh;\r\n  margin: 5px;\r\n}\r\n.name {\r\n  font-size: 3vh;\r\n  margin: 12px;\r\n}\r\n.cell {\r\n  margin: 20px;\r\n  margin-top: 2%;\r\n  margin-bottom: 2%;\r\n}\r\n.social {\r\n  width: 44px;\r\n  height: 44px;\r\n  padding: 10px;\r\n}\r\n.social img {\r\n  margin: 10px;\r\n  width: inherit;\r\n  height: inherit;\r\n}", ""]);
 
 // exports
 
@@ -34561,7 +34561,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "html, body {\n  margin: 0;\n  overflow: hidden;\n}\nbody {\n  font-family: MyFrida, helvetica;\n  color: #fff;\n  background-color: #696969;\n}\n.main {\n  position: fixed;\n  left: 10px;\n  bottom: 10px;\n}\n.main-button {\n  width: 100px;\n  height: 100px;\n  margin: 30px;\n}\n.main-button img {\n  width: 90px;\n  height: 90px;\n}", ""]);
+exports.push([module.i, "html, body {\r\n  margin: 0;\r\n  overflow: hidden;\r\n}\r\nbody {\r\n  font-family: MyFrida, helvetica;\r\n  color: #fff;\r\n  background-color: #696969;\r\n}\r\n.main {\r\n  position: fixed;\r\n  left: 10px;\r\n  bottom: 10px;\r\n}\r\n.main-button {\r\n  width: 100px;\r\n  height: 100px;\r\n  margin: 30px;\r\n}\r\n.main-button img {\r\n  width: 90px;\r\n  height: 90px;\r\n}", ""]);
 
 // exports
 
