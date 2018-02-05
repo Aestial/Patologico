@@ -1,8 +1,12 @@
 .forkit-curtain {
   text-align: center;
   background: rgba( 0, 0, 0, 0.85);
-  padding-top: 20px;
+  /* padding-top: 20px; */
   z-index: 1000;
+  overflow : auto;
+}
+.curtain-container {
+  overflow : auto;
 }
 .forkit-curtain .close-button {
   position: absolute;
@@ -17,16 +21,16 @@ h1, h2 {
   margin-bottom: 8px;
 }
 .title {
-  font-size: 5vh;
+  font-size: 2.2em;
   color: #f2f2f2;
   padding: 20px;
 }
 .subtitle {
-  font-size: 2.4vh;
+  font-size: 1.6em;
   margin: 5px;
 }
 .name {
-  font-size: 3vh;
+  font-size: 1.35em;
   margin: 12px;
 }
 .cell {
@@ -35,8 +39,8 @@ h1, h2 {
   margin-bottom: 2%;
 }
 .social {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   padding: 10px;
 }
 .social img {
