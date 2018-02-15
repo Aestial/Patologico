@@ -1,7 +1,11 @@
+/deploy
+
 // NPM
 node_modules/
 npm-debug.log
-// MacOS shit file
-.DS_Store
+
 // Atom Js hint config
 .jshintrc
+
+// MacOS shit file
+.DS_Store
