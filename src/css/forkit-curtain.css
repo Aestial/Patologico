@@ -17,31 +17,30 @@
   cursor: pointer;
 }
 h1, h2 {
-  padding: 5px;
-  margin-bottom: 8px;
+  /* padding: 5px; */
+  /* margin-bottom: 8px; */
 }
 .title {
   font-size: 2.2em;
   color: #f2f2f2;
-  padding: 20px;
 }
 .subtitle {
   font-size: 1.6em;
-  margin: 5px;
+  /* margin: 1px; */
 }
 .name {
   font-size: 1.35em;
-  margin: 12px;
+  /* margin: 12px; */
 }
 .cell {
-  margin: 20px;
-  margin-top: 2%;
-  margin-bottom: 2%;
+  /* margin: 20px; */
+  /* margin-top: 2%; */
+  /* margin-bottom: 2%; */
 }
 .social {
   width: 40px;
   height: 40px;
-  padding: 10px;
+  /* padding: 10px; */
 }
 .social img {
   margin: 10px;
