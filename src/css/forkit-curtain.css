@@ -17,7 +17,7 @@
   cursor: pointer;
 }
 h1, h2 {
-  /* padding: 5px; */
+  padding: 5px;
   /* margin-bottom: 8px; */
 }
 .title {
@@ -33,7 +33,7 @@ h1, h2 {
   /* margin: 12px; */
 }
 .cell {
-  /* margin: 20px; */
+  margin: 20px;
   /* margin-top: 2%; */
   /* margin-bottom: 2%; */
 }
