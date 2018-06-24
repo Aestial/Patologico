@@ -4,10 +4,11 @@
   height: 100%;
   bottom: 0;
 }
+/* @media only screen and (orientation: portrait) { */
 
-@media only screen and (orientation: portrait) {
+@media (max-width: 600px) {
   #pato {
+    /* display: none; */
     width: auto;
-    transform: translate(-23%, 10%);
   }
 }

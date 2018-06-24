@@ -29,11 +29,12 @@ var onLoaded = function() {
   }, safeTimeout);
 };
 
-if (isMobile) {
-    console.log(md.mobile());
-} else {
-  window.addEventListener('load', onLoaded);
-}
+// if (isMobile) {
+//     console.log(md.mobile());
+// } else {
+// }
+
+window.addEventListener('load', onLoaded);
 
 function touchstart(e) {
     e.preventDefault();
@@ -42,16 +43,16 @@ function touchstart(e) {
 function touchmove(e) {
     e.preventDefault();
 }
-
-if (isMobile) {
-  console.log(md.mobile());
-  document.addEventListener('touchstart', this.touchstart);
-  document.addEventListener('touchmove', this.touchmove);
-  $('html, body').css({
-    overflow: 'hidden',
-    height: '100%',
-    width: '100%'
-  });
-} else {
-  window.addEventListener('load', onLoaded);
-}
+//
+// if (isMobile) {
+//   console.log(md.mobile());
+//   document.addEventListener('touchstart', this.touchstart);
+//   document.addEventListener('touchmove', this.touchmove);
+//   $('html, body').css({
+//     overflow: 'hidden',
+//     height: '100%',
+//     width: '100%'
+//   });
+// } else {
+//   window.addEventListener('load', onLoaded);
+// }
