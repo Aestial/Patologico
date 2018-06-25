@@ -10951,7 +10951,7 @@ var md = new __WEBPACK_IMPORTED_MODULE_0_mobile_detect___default.a(window.naviga
 var isMobile = md.mobile() != null;
 
 var loading = $('#loading-screen');
-var safeTimeout = 527;
+var safeTimeout = 1050;
 
 var sideDom = $('.button-collapse');
 var side = new __WEBPACK_IMPORTED_MODULE_1__controller_side_js__["a" /* default */](sideDom);
@@ -10959,6 +10959,8 @@ window.side = side;
 
 var ribbon = $('.forkit');
 var curtain = $('.forkit-curtain');
+var desktopMain = $('.desktop_main');
+var desktopSlide = $('#slide-out');
 
 var character = new __WEBPACK_IMPORTED_MODULE_2__model_Character_js__["a" /* default */]();
 window.pato = character;
@@ -10974,6 +10976,8 @@ if (isMobile) {
   console.log(md.mobile());
   ribbon.remove();
   curtain.remove();
+  desktopMain.remove();
+  desktopSlide.remove();
 }
 // else {
 //
@@ -34569,7 +34573,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "html, body {\n  margin: 0;\n  overflow: hidden;\n}\nbody {\n  font-family: MyFrida, helvetica;\n  color: #fff;\n  background-color: #696969;\n}\n.main {\n  position: fixed;\n  left: 10px;\n  bottom: 10px;\n}\n.main-button {\n  width: 100px;\n  height: 100px;\n  margin: 30px;\n}\n.main-button img {\n  width: 90px;\n  height: 90px;\n}", ""]);
+exports.push([module.i, "html, body {\n  margin: 0;\n  overflow: hidden;\n}\nbody {\n  font-family: MyFrida, helvetica;\n  color: #fff;\n  background-color: #696969;\n}\n.desktop_main {\n  position: fixed;\n  left: 10px;\n  bottom: 10px;\n}\n.main-button {\n  width: 100px;\n  height: 100px;\n  margin: 30px;\n}\n.main-button img {\n  width: 90px;\n  height: 90px;\n}", ""]);
 
 // exports
 

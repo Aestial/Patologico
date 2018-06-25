@@ -13,7 +13,7 @@ var md = new MobileDetect(window.navigator.userAgent);
 var isMobile = md.mobile() != null;
 
 var loading = $('#loading-screen');
-var safeTimeout = 527;
+var safeTimeout = 1050;
 
 var sideDom = $('.button-collapse');
 var side = new Side(sideDom);
@@ -21,6 +21,8 @@ window.side = side;
 
 var ribbon = $('.forkit');
 var curtain = $('.forkit-curtain');
+var desktopMain = $('.desktop_main');
+var desktopSlide = $('#slide-out');
 
 var character = new Character();
 window.pato = character;
@@ -36,6 +38,8 @@ if (isMobile) {
   console.log(md.mobile());
   ribbon.remove();
   curtain.remove();
+  desktopMain.remove();
+  desktopSlide.remove();
 }
 // else {
 //
