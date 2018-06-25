@@ -19,6 +19,9 @@ var sideDom = $('.button-collapse');
 var side = new Side(sideDom);
 window.side = side;
 
+var ribbon = $('.forkit');
+var curtain = $('.forkit-curtain');
+
 var character = new Character();
 window.pato = character;
 
@@ -29,9 +32,13 @@ var onLoaded = function() {
   }, safeTimeout);
 };
 
-// if (isMobile) {
-//     console.log(md.mobile());
-// } else {
+if (isMobile) {
+  console.log(md.mobile());
+  ribbon.remove();
+  curtain.remove();
+}
+// else {
+//
 // }
 
 window.addEventListener('load', onLoaded);

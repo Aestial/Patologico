@@ -10957,6 +10957,9 @@ var sideDom = $('.button-collapse');
 var side = new __WEBPACK_IMPORTED_MODULE_1__controller_side_js__["a" /* default */](sideDom);
 window.side = side;
 
+var ribbon = $('.forkit');
+var curtain = $('.forkit-curtain');
+
 var character = new __WEBPACK_IMPORTED_MODULE_2__model_Character_js__["a" /* default */]();
 window.pato = character;
 
@@ -10967,9 +10970,13 @@ var onLoaded = function() {
   }, safeTimeout);
 };
 
-// if (isMobile) {
-//     console.log(md.mobile());
-// } else {
+if (isMobile) {
+  console.log(md.mobile());
+  ribbon.remove();
+  curtain.remove();
+}
+// else {
+//
 // }
 
 window.addEventListener('load', onLoaded);
