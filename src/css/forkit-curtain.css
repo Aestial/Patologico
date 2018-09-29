@@ -3,10 +3,10 @@
   background: rgba( 0, 0, 0, 0.85);
   /* padding-top: 20px; */
   z-index: 1000;
-  overflow : auto;
+  overflow: auto;
 }
 .curtain-container {
-  overflow : auto;
+  overflow: auto;
 }
 .forkit-curtain .close-button {
   position: absolute;
@@ -46,4 +46,10 @@ h1, h2 {
   margin: 10px;
   width: inherit;
   height: inherit;
+  transition: all 150ms ease-in;
+  transform: scale(1);
+}
+.social img:hover {
+  transition: all 250ms ease-in;
+  transform: scale(1.3);
 }
