@@ -1,6 +1,6 @@
 .forkit-curtain {
   text-align: center;
-  background: rgba( 0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.85);
   /* padding-top: 20px; */
   z-index: 1000;
   overflow: auto;
@@ -33,23 +33,25 @@ h1, h2 {
   /* margin: 12px; */
 }
 .cell {
-  margin: 20px;
+  margin: 35px;
   /* margin-top: 2%; */
   /* margin-bottom: 2%; */
 }
 .social {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   /* padding: 10px; */
 }
 .social img {
-  margin: 10px;
+  margin: 20px;
   width: inherit;
   height: inherit;
   transition: all 150ms ease-in;
+  z-index: 4;
   transform: scale(1);
 }
 .social img:hover {
   transition: all 250ms ease-in;
-  transform: scale(1.3);
+  z-index: 5;
+  transform: scale(2.5);
 }
