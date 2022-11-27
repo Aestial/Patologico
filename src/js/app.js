@@ -4,7 +4,7 @@ require('forkit/js/forkit');
 import Side from './controller/side.js';
 import Character from './model/Character.js';
 // CSS
-import '../css/character.css';
+import '../css/pato.css';
 import '../css/forkit.css';
 import '../css/forkit-curtain.css';
 import '../css/style.css';
@@ -21,8 +21,6 @@ window.side = side;
 
 var ribbon = $('.forkit');
 var curtain = $('.forkit-curtain');
-var desktopMain = $('.desktop_main');
-var desktopSlide = $('#slide-out');
 
 var character = new Character();
 window.pato = character;
@@ -38,12 +36,7 @@ if (isMobile) {
   console.log(md.mobile());
   ribbon.remove();
   curtain.remove();
-  desktopMain.remove();
-  desktopSlide.remove();
 }
-// else {
-//
-// }
 
 window.addEventListener('load', onLoaded);
 
@@ -54,16 +47,3 @@ function touchstart(e) {
 function touchmove(e) {
     e.preventDefault();
 }
-//
-// if (isMobile) {
-//   console.log(md.mobile());
-//   document.addEventListener('touchstart', this.touchstart);
-//   document.addEventListener('touchmove', this.touchmove);
-//   $('html, body').css({
-//     overflow: 'hidden',
-//     height: '100%',
-//     width: '100%'
-//   });
-// } else {
-//   window.addEventListener('load', onLoaded);
-// }

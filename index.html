@@ -26,7 +26,7 @@
 	<meta name="msapplication-square150x150logo" content="dist/favicon/mstile-150x150.png" />
 	<meta name="msapplication-wide310x150logo" content="dist/favicon/mstile-310x150.png" />
 	<meta name="msapplication-square310x310logo" content="dist/favicon/mstile-310x310.png" />
-	<link rel="stylesheet" type="text/css" href="src/css/load.css" />
+	<link rel="stylesheet" type="text/css" href="src/css/loading-screen.css" />
 	<link rel="stylesheet" type="text/css" href="src/fonts/myfrida/font.css" />
 	<!-- <script type="text/javascript" src="dist/bundle.js"></script> -->
 </head>
@@ -45,10 +45,11 @@
 			<img class="logo" src="src/svg/loading.svg"></img>
 		</div>
 	</div>
-	<!-- Main SVG -->
-	<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-	  xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" id="pato" version="1.1" inkscape:version="0.48.5 r10040" height="100%" sodipodi:docname="patologico.svg"
-	  inkscape:export-filename="C:\Users\David\Desktop\Mister\Instagram 2.png" inkscape:export-xdpi="157.38342" inkscape:export-ydpi="157.38342" viewBox="-0.1 0 641.27998 873.81338">
+
+	<div class="pato-container">
+		<!-- Main SVG -->
+		<svg id="pato" version="1.1" inkscape:version="0.48.5 r10040" sodipodi:docname="patologico.svg" 
+			viewBox="-0 0 630 874">
 		<metadata id="metadata8">
 			<rdf:RDF>
 				<cc:Work rdf:about="">
@@ -483,9 +484,12 @@
 		</g>
 		<path style="fill:#000000;stroke:none;stroke-width:0.43108627px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 409.61066,813.47089 c 0.21779,0.38208 0.53044,3.47406 2.23556,3.86813 5.09367,1.17732 1.30534,1.80867 1.30534,1.80867 2.31741,4.24739 6.58051,8.49472 10.64053,12.74207 -0.16412,0.11365 -6.61582,-6.4306 -11.79573,-11.57931 -2.98548,-0.23489 -4.63338,-1.53691 -2.50253,-2.31711 0.019,-0.39817 -0.88395,-3.17382 0.11683,-4.52245 z"
 		  id="path3875" inkscape:connector-curvature="0" sodipodi:nodetypes="csccccc" />
-	</svg>
+		</svg>
+	</div>
+	
+	
 	<!-- Main menu -->
-	<div class="desktop_main">
+	<div class="main-menu">
 		<div class="main-button"><img onclick="location.reload(true);" src="src/svg/die3d.svg"></div>
 		<div class="main-button"><img onclick="side.toggle(true);" src="src/svg/plus.svg"></div>
 	</div>
