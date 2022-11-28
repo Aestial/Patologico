@@ -1,7 +1,7 @@
 .forkit-curtain {
+  /* position: relative; */
   text-align: center;
   background: rgba(0, 0, 0, 0.85);
-  /* padding-top: 20px; */
   z-index: 1000;
   overflow: auto;
 }
@@ -9,38 +9,26 @@
   overflow: auto;
 }
 .forkit-curtain .close-button {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  right: 30px;
-  top: 30px;
+  position: relative;
+  text-align: right;
   cursor: pointer;
-}
-h1, h2 {
-  padding: 5px;
-  /* margin-bottom: 8px; */
+  margin: 15px 15px 0 0;
 }
 .title {
-  font-size: 2.2em;
-  color: #f2f2f2;
+  font-size: 2.5em;
 }
 .subtitle {
   font-size: 1.6em;
-  /* margin: 1px; */
 }
 .name {
   font-size: 1.35em;
-  /* margin: 12px; */
 }
 .cell {
   margin: 35px;
-  /* margin-top: 2%; */
-  /* margin-bottom: 2%; */
 }
 .social {
   width: 45px;
   height: 45px;
-  /* padding: 10px; */
 }
 .social img {
   margin: 20px;
@@ -53,5 +41,5 @@ h1, h2 {
 .social img:hover {
   transition: all 250ms ease-in;
   z-index: 5;
-  transform: scale(2.5);
+  transform: scale(2);
 }

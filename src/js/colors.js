@@ -154,8 +154,7 @@ colors = {
     "#666666",
     "#333333",
     "#800000",
-    "#cccccc",
-    "#ffffff"
+    "#cccccc"
   ]
 };
 module.exports = colors;
