@@ -12901,9 +12901,7 @@ module.exports = function() {
 class Side {
   constructor(dom) {
     this.dom = dom;
-    this.dom.sideNav({
-      menuWidth: 350
-    });
+    this.dom.sideNav();
   }
   toggle(show) {
     var cmd = show ? 'show' : 'hide';
@@ -25898,7 +25896,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, ".side-nav {\n  color: #fff;\n  background-color: rgba(5, 5, 5, 0.85);\n}\n#sidenav-overlay {\n  /* background-color: rgba(0, 0, 0, 0.13); */\n  background-color: transparent;\n}\n.side-menu {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 100%;\n  transform: translate(-50%, -50%);\n  margin-bottom: 15px;\n}\n.side-option {\n  margin-top: 50px;\n  margin-bottom: 50px;\n}\n.option-container {\n  text-align: center;\n}\n.icon {\n  display: inline-block;\n  margin: 2px;\n}\n.icon img {\n  display: block;\n  margin: auto;\n  width: 120px;\n  height: 120px;\n}\n.button {\n  display: inline-block;\n  transform: translateY(-55%);\n  margin: 6px;\n}\n.button img {\n  width: 50px;\n  height: 50px;\n}\n#background-icon {\n  width: 10px;\n  height: 90px;\n}\n\n@media (max-width: 642px) {\n  \n}", ""]);
+exports.push([module.i, ".side-nav {\n  color: #fff;\n  background-color: rgba(5, 5, 5, 0.85);\n}\n#sidenav-overlay {\n  /* background-color: rgba(0, 0, 0, 0.13); */\n  background-color: transparent;\n}\n.side-menu {\n  position: relative;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.side-option {\n  margin-top: 25px;\n  margin-bottom: 25px;\n}\n.option-container {\n  text-align: center;\n}\n.icon {\n  display: inline-block;\n  margin: 3px;\n}\n.icon img {\n  display: block;\n  margin: auto;\n  width: 70px;\n  height: 70px;\n}\n.button {\n  display: inline-block;\n  transform: translateY(-55%);\n  margin: 6px;\n}\n.button img {\n  width: 35px;\n  height: 35px;\n}\n#background-icon {\n  width: 30px;\n  height: 50px\n}", ""]);
 
 // exports
 

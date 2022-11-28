@@ -7,29 +7,27 @@
   background-color: transparent;
 }
 .side-menu {
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
-  width: 100%;
   transform: translate(-50%, -50%);
-  margin-bottom: 15px;
 }
 .side-option {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 .option-container {
   text-align: center;
 }
 .icon {
   display: inline-block;
-  margin: 2px;
+  margin: 3px;
 }
 .icon img {
   display: block;
   margin: auto;
-  width: 120px;
-  height: 120px;
+  width: 70px;
+  height: 70px;
 }
 .button {
   display: inline-block;
@@ -37,10 +35,10 @@
   margin: 6px;
 }
 .button img {
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
 }
 #background-icon {
-  width: 10px;
-  height: 90px;
+  width: 30px;
+  height: 50px
 }

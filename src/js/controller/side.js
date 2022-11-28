@@ -6,9 +6,7 @@ import '../../css/side.css';
 export default class Side {
   constructor(dom) {
     this.dom = dom;
-    this.dom.sideNav({
-      menuWidth: 350
-    });
+    this.dom.sideNav();
   }
   toggle(show) {
     var cmd = show ? 'show' : 'hide';
